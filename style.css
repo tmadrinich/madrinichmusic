@@ -58,7 +58,7 @@ section { padding: 80px 20px; }
     max-width: 200px;               /* Adjust size */
     height: auto;
     display: block;
-    margin-bottom: 30px;            /* Space below logo */
+    margin: 0 auto 30px;            /* Center horizontally and add space below */
 }
 
 /* Hero Title and Text */
@@ -67,6 +67,7 @@ section { padding: 80px 20px; }
     color: #F2EFEA;
     font-size: 4rem;
     margin-bottom: 20px;
+    text-align: center;  /* Centers all text inside hero */
 }
 
 .hero p {
