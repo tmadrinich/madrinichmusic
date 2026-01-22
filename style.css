@@ -47,23 +47,36 @@ section {
     top: 0;
     z-index: 1000;
     background: #0F2A1F; /* solid header color */
-    backdrop-filter: blur(6px);
     border-bottom: 1px solid rgba(255,255,255,0.1);
     transition: all 0.3s ease;
-    padding: 30px 40px;
+
     display: flex;
-    align-items: center;
-}
-.header-logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 70px;
-    transition: all 0.3s ease;
+    align-items: center;       /* vertically center logo and nav */
+    justify-content: center;   /* center logo horizontally */
+    padding: 20px 40px;        /* header taller than logo */
+    min-height: 100px;         /* ensures header height >= logo */
 }
 
+/* Header container to position nav on sides if needed */
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* logo in center */
+    width: 100%;
+    position: relative;
+}
+
+/* ===== LOGO ===== */
+.header-logo {
+    height: 70px;             /* fits inside header */
+    transition: all 0.3s ease;
+    position: relative;       /* not absolute */
+}
+
+/* ===== NAVIGATION ===== */
 .nav {
-    margin-left: auto;
+    position: absolute;
+    right: 40px;              /* keeps nav on the right */
     display: flex;
     gap: 30px;
 }
@@ -79,13 +92,53 @@ section {
     color: #B08D57;
 }
 
-/* SHRINK HEADER ON SCROLL */
+/* ===== SHRINK HEADER ON SCROLL ===== */
 .site-header.shrink {
-    padding: 10px 0;
+    padding: 10px 40px;       /* smaller padding */
 }
 
 .site-header.shrink .header-logo {
-    height: 45px;
+    height: 50px;             /* shrink logo proportionally */
+}
+
+/* ===== MOBILE MENU ===== */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 40px;              /* same as nav for mobile */
+}
+
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: #F2EFEA;
+    margin: 6px 0;
+}
+
+@media (max-width: 768px) {
+    .nav {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #121212;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        display: none;
+        padding: 20px 0;
+    }
+
+    .nav.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
 }
 
 /* MOBILE MENU */
