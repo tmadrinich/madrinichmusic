@@ -63,7 +63,7 @@ section {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    height: 150px;
+    height: 70px;
     transition: all 0.3s ease;
 }
 
