@@ -46,21 +46,24 @@ section {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: #0F2A1F; /* solid header color */
-    backdrop-filter: blur(6px);
+    background: #0F2A1F;
     border-bottom: 1px solid rgba(255,255,255,0.1);
     transition: all 0.3s ease;
-    padding: 30px 40px;
+
     display: flex;
     align-items: center;
-}
+    justify-content: center;
+
+    /* Make sure header is taller than logo */
+    min-height: 180px; /* logo is 150px, so add extra 30px */
+    padding: 0 40px;
 
 
 .header-logo {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    height: 100px;
+    height: 150px;
     transition: all 0.3s ease;
 }
 
