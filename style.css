@@ -174,5 +174,103 @@ footer {
     transform: scale(1.2);
     opacity: 0.8;
 }
+/* ===== HEADER BASE ===== */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(18, 18, 18, 0.95); /* charcoal */
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+}
+
+.header-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 30px 40px;
+}
+
+/* ===== CENTER LOGO ===== */
+.header-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 70px;
+    transition: all 0.3s ease;
+}
+
+/* ===== NAV ===== */
+.nav {
+    margin-left: auto;
+    display: flex;
+    gap: 30px;
+}
+
+.nav a {
+    color: #F2EFEA;
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.08em;
+}
+
+.nav a:hover {
+    color: #B08D57;
+}
+
+/* ===== SHRINK ON SCROLL ===== */
+.site-header.shrink {
+    padding: 10px 0;
+}
+
+.site-header.shrink .header-logo {
+    height: 45px;
+}
+
+/* ===== HERO OVERLAP ===== */
+.hero {
+    margin-top: -80px;
+    padding-top: 160px;
+}
+
+/* ===== MOBILE MENU ===== */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: #F2EFEA;
+    margin: 6px 0;
+}
+
+/* ===== MOBILE STYLES ===== */
+@media (max-width: 768px) {
+    .nav {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #121212;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        display: none;
+        padding: 20px 0;
+    }
+
+    .nav.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
 
 
