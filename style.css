@@ -1,13 +1,12 @@
-/* Base Styles */
+/* ===================== BASE STYLES ===================== */
 body {
     margin: 0;
     font-family: 'Lato', sans-serif;
     background-color: #0F2A1F;
-    color: #121212;
+    color: #F2EFEA;
     line-height: 1.6;
 }
 
-/* Typography */
 h1, h2, h3 {
     font-family: 'Oswald', sans-serif;
     color: #F2EFEA;
@@ -25,13 +24,11 @@ p {
     color: #B08D57;
 }
 
-/* Layout */
 .container {
     max-width: 1100px;
     margin: 0 auto;
 }
 
-/* Sections */
 section {
     padding: 80px 20px;
 }
@@ -44,53 +41,95 @@ section {
     background-color: #0F2A1F;
 }
 
-/* Sticky Header */
+/* ===================== HEADER ===================== */
 .site-header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-color: rgba(15, 42, 31, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.header-container {
-    position: relative;
+    background: #0F2A1F; /* solid header color */
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    padding: 30px 40px;
     display: flex;
     align-items: center;
-    padding: 50px 40px; /* ⬅ taller header */
 }
 
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-/* Header Logo */
 .header-logo {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    height: 110px; /* ⬅ larger logo */
-    transition: all 0.35s ease;
+    height: 70px;
+    transition: all 0.3s ease;
 }
 
+.nav {
+    margin-left: auto;
+    display: flex;
+    gap: 30px;
+}
 
-/* Navigation */
 .nav a {
-    margin-left: 30px;
+    color: #F2EFEA;
     text-decoration: none;
     font-family: 'Oswald', sans-serif;
-    color: #F2EFEA;
-    font-size: 1rem;
-    letter-spacing: 1px;
+    letter-spacing: 0.08em;
 }
 
 .nav a:hover {
     color: #B08D57;
 }
 
-/* Hero Section */
+/* SHRINK HEADER ON SCROLL */
+.site-header.shrink {
+    padding: 10px 0;
+}
+
+.site-header.shrink .header-logo {
+    height: 45px;
+}
+
+/* MOBILE MENU */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: #F2EFEA;
+    margin: 6px 0;
+}
+
+@media (max-width: 768px) {
+    .nav {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #121212;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        display: none;
+        padding: 20px 0;
+    }
+
+    .nav.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* ===================== HERO ===================== */
 .hero {
     background-image: url('assets/hero.jpg');
     background-size: cover;
@@ -100,9 +139,11 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-
     text-align: center;
+
     min-height: 100vh;
+    margin-top: -80px;
+    padding-top: 160px;
 }
 
 .hero h1 {
@@ -114,7 +155,7 @@ section {
     font-size: 1.5rem;
 }
 
-/* Buttons */
+/* ===================== BUTTONS ===================== */
 .btn {
     display: inline-block;
     padding: 12px 30px;
@@ -130,7 +171,7 @@ section {
     opacity: 0.9;
 }
 
-/* Footer */
+/* ===================== FOOTER ===================== */
 footer {
     background-color: #0F2A1F;
     color: #F2EFEA;
@@ -138,7 +179,28 @@ footer {
     padding: 40px 20px;
 }
 
-/* Responsive */
+/* ===================== SOCIAL LINKS ===================== */
+.social-links {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
+
+.social-links a {
+    font-size: 48px;
+    color: #F2EFEA;
+    text-decoration: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.social-links a:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+/* ===================== RESPONSIVE ===================== */
 @media (max-width: 768px) {
     .header-container {
         flex-direction: column;
@@ -161,123 +223,5 @@ footer {
     }
 }
 
-/* Social links under About section */
-.social-links {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 32px; /* space between icons */
-}
-
-.social-links a {
-    font-size: 48px; /* BIG icons */
-    color: #F2EFEA;
-    text-decoration: none;
-    transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-.social-links a:hover {
-    transform: scale(1.2);
-    opacity: 0.8;
-}
-/* ===== HEADER BASE ===== */
-.site-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: #0F2A1F; /* charcoal */
-    backdrop-filter: blur(6px);
-    transition: all 0.3s ease;
-}
-
-.header-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 30px 40px;
-}
-
-/* ===== CENTER LOGO ===== */
-.header-logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 70px;
-    transition: all 0.3s ease;
-}
-
-/* ===== NAV ===== */
-.nav {
-    margin-left: auto;
-    display: flex;
-    gap: 30px;
-}
-
-.nav a {
-    color: #F2EFEA;
-    text-decoration: none;
-    font-family: 'Oswald', sans-serif;
-    letter-spacing: 0.08em;
-}
-
-.nav a:hover {
-    color: #B08D57;
-}
-
-/* ===== SHRINK ON SCROLL ===== */
-.site-header.shrink {
-    padding: 10px 0;
-}
-
-.site-header.shrink .header-logo {
-    height: 45px;
-}
-
-/* ===== HERO OVERLAP ===== */
-.hero {
-    margin-top: -80px;
-    padding-top: 160px;
-}
-
-/* ===== MOBILE MENU ===== */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: auto;
-}
-
-.menu-toggle span {
-    display: block;
-    width: 25px;
-    height: 2px;
-    background: #F2EFEA;
-    margin: 6px 0;
-}
-
-/* ===== MOBILE STYLES ===== */
-@media (max-width: 768px) {
-    .nav {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background: #121212;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-        display: none;
-        padding: 20px 0;
-    }
-
-    .nav.active {
-        display: flex;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-}
 
 
