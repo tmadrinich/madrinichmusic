@@ -54,9 +54,12 @@ section {
 }
 
 .header-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 15px 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 50px 40px; /* ⬅ taller header */
+}
+
 
     display: flex;
     align-items: center;
@@ -65,9 +68,13 @@ section {
 
 /* Header Logo */
 .header-logo {
-    max-width: 120px;
-    height: auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 110px; /* ⬅ larger logo */
+    transition: all 0.35s ease;
 }
+
 
 /* Navigation */
 .nav a {
@@ -179,7 +186,7 @@ footer {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(18, 18, 18, 0.95); /* charcoal */
+    background: #0F2A1F; /* charcoal */
     backdrop-filter: blur(6px);
     transition: all 0.3s ease;
 }
