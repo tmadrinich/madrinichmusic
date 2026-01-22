@@ -47,7 +47,7 @@ section {
     top: 0;
     z-index: 1000;
     background: #0F2A1F; /* solid header color */
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid #0F2A1F;
     transition: all 0.3s ease;
 
     display: flex;
