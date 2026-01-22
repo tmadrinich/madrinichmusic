@@ -68,7 +68,7 @@ section {
 
 /* ===== LOGO ===== */
 .header-logo {
-    height: 70px;             /* fits inside header */
+    height: 100px;             /* fits inside header */
     transition: all 0.3s ease;
     position: relative;       /* not absolute */
 }
