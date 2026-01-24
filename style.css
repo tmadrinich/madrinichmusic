@@ -24,15 +24,16 @@ section { padding: 80px 20px; }
 .section-dark { background-color: #0F2A1F; }
 
 /* ===================== HEADER ===================== */
+/* Header */
 .site-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background: #0F2A1F;
-    border-bottom: 1px solid #0F2A1F;
-    z-index: 9999;
     height: 100px;
+    z-index: 9999;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .header-container {
@@ -44,12 +45,9 @@ section { padding: 80px 20px; }
     padding: 0 40px;
 }
 
-/* Unified nav */
 .nav {
     display: flex;
     gap: 30px;
-    height: 100%;
-    align-items: center;
 }
 
 .nav a {
@@ -62,8 +60,13 @@ section { padding: 80px 20px; }
     height: 100%;
 }
 
-.nav a.active { color: #B08D57; }
-.nav a:hover { color: #B08D57; }
+.nav a.active {
+    color: #B08D57;
+}
+
+.nav a:hover {
+    color: #B08D57;
+}
 
 /* Logo centered */
 .logo-wrapper {
@@ -74,9 +77,11 @@ section { padding: 80px 20px; }
     align-items: center;
 }
 
-.header-logo { height: 80px; }
+.header-logo {
+    height: 80px;
+}
 
-/* ===================== MOBILE HEADER ===================== */
+/* Mobile styles */
 .menu-toggle {
     display: none;
     font-size: 2rem;
@@ -86,16 +91,11 @@ section { padding: 80px 20px; }
 }
 
 @media (max-width: 768px) {
-
-    /* Header container adjustments */
     .header-container {
-        position: relative;
-        height: 100px;
         padding: 0 20px;
-        justify-content: initial; /* remove flex spacing conflicts */
     }
 
-    /* Hide nav by default */
+    /* Stack nav vertically and hide initially */
     .nav {
         flex-direction: column;
         position: absolute;
@@ -103,25 +103,21 @@ section { padding: 80px 20px; }
         left: 0;
         width: 100%;
         background-color: #121212;
-        overflow: hidden;
         max-height: 0;
         opacity: 0;
+        overflow: hidden;
+        padding: 0;
         text-align: center;
         gap: 15px;
-        padding: 0;
         transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
-        z-index: 9999;
     }
 
-    .nav a { height: auto; } /* fixes link alignment on mobile */
-
     .nav.active {
-        max-height: 600px; /* enough for all links */
+        max-height: 500px;
         opacity: 1;
         padding: 20px 0;
     }
 
-    /* Hamburger toggle */
     .menu-toggle {
         display: block;
         position: absolute;
@@ -130,13 +126,11 @@ section { padding: 80px 20px; }
         transform: translateY(-50%);
     }
 
-    /* Logo centered */
+    /* Logo centered on mobile */
     .logo-wrapper {
-        position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        z-index: 10001;
     }
 }
 
