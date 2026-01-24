@@ -4,6 +4,7 @@ fetch('/partials/header.html')
   .then(html => {
     document.getElementById('header').innerHTML = html;
     initNav();
+    showSuccessMessage(); // Run success check after header loads
   });
 
 fetch('/partials/footer.html')
@@ -16,6 +17,8 @@ fetch('/partials/footer.html')
 function initNav() {
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav');
+  if (!nav) return; // Safety check
+
   const links = nav.querySelectorAll('a');
 
   menuToggle.addEventListener('click', () => {
@@ -40,11 +43,16 @@ function initNav() {
   });
 }
 
-<script>
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('success') === 'true') {
-        document.getElementById('contact-form').style.display = 'none';
-        document.getElementById('contact-intro').style.display = 'none';
-        document.getElementById('success-message').style.display = 'block';
-    }
-</script>
+// Show success message on contact form submission
+function showSuccessMessage() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('success') === 'true') {
+    const form = document.getElementById('contact-form');
+    const intro = document.getElementById('contact-intro');
+    const success = document.getElementById('success-message');
+
+    if (form) form.style.display = 'none';
+    if (intro) intro.style.display = 'none';
+    if (success) success.style.display = 'block';
+  }
+}
