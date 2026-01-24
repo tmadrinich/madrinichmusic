@@ -72,22 +72,22 @@ section {
     padding: 0 40px;
 }
 
-/* Left / right navs */
-.nav-left, .nav-right {
+/* Unified nav */
+.nav {
     display: flex;
     gap: 30px;
     height: 100%;
     align-items: center;
 }
 
-.nav-left a, .nav-right a {
+.nav a {
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
     color: #F2EFEA;
     text-decoration: none;
-    height: 100%;
     display: flex;
     align-items: center;
+    height: 100%;
 }
 
 .nav a.active {
@@ -114,20 +114,22 @@ section {
 /* ===================== MOBILE HEADER ===================== */
 .menu-toggle {
     display: none; /* hide on desktop */
+    font-size: 2rem;
+    cursor: pointer;
+    color: #F2EFEA;
+    z-index: 10000;
 }
 
 @media (max-width: 768px) {
-
-    /* Header container centered */
+    /* Header container */
     .header-container {
         justify-content: center;
         padding: 0 20px;
         position: relative;
     }
 
-    /* Hide nav menu initially with slide effect */
+    /* Hide nav initially */
     .nav {
-        display: flex;
         flex-direction: column;
         width: 100%;
         background-color: #121212;
@@ -147,7 +149,7 @@ section {
     /* Show menu when active */
     .nav.active {
         padding: 20px 0;
-        max-height: 500px; /* enough to fit all items */
+        max-height: 500px; /* enough for all links */
         opacity: 1;
     }
 
@@ -158,10 +160,6 @@ section {
         right: 20px;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 2rem;
-        cursor: pointer;
-        color: #F2EFEA;
-        z-index: 10000;
     }
 
     /* Logo centered */
@@ -174,7 +172,7 @@ section {
 
 /* ===================== HERO ===================== */
 .hero {
-    background-image: url('/assets/hero.jpg');
+    background-image: url('assets/hero.jpg');
     background-size: cover;
     background-position: center;
     color: #F2EFEA;
@@ -210,7 +208,7 @@ section {
     opacity: 0.9;
 }
 
-/* ===================== ABOUT PAGE / ARTIST CARDS ===================== */
+/* ===================== ABOUT / ARTIST CARDS ===================== */
 .artist-cards {
     display: flex;
     flex-wrap: wrap;
@@ -247,7 +245,7 @@ section {
     bottom: 0;
     width: 100%;
     background: rgba(0,0,0,0.6);
-    color: #ffffff;
+    color: #fff;
     font-weight: 700;
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
@@ -262,7 +260,7 @@ section {
     font-weight: 700;
 }
 
-/* ===================== CONTACT PAGE ===================== */
+/* ===================== CONTACT ===================== */
 .contact-form {
     max-width: 600px;
     margin: 0 auto;
@@ -332,10 +330,7 @@ footer {
 }
 
 /* ===================== CONTACT / HERO OFFSET ===================== */
-.section-light .container {
-    padding-top: 40px;
-}
-
+.section-light .container,
 .section-dark .container {
     padding-top: 40px;
 }
