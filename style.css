@@ -52,8 +52,6 @@ section {
     z-index: 9999;
     background: #0F2A1F;
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    display: flex;
-    justify-content: center;
     padding: 20px 40px;
     min-height: 100px;
 }
@@ -68,11 +66,15 @@ section {
 }
 
 /* LOGO */
-.header-logo-link {
-    display: block;
+.logo-wrapper {
+    flex: 0 0 auto;  /* prevent flex shrinking */
+    padding: 0 20px; /* spacing around logo */
 }
+
 .header-logo {
     height: 80px;
+    display: block;
+    max-width: 200px;
     transition: height 0.3s ease;
 }
 
@@ -135,6 +137,7 @@ section {
 @media (max-width: 768px) {
     .header-container {
         flex-direction: column;
+        align-items: center;
     }
 
     .nav-left,
@@ -155,6 +158,7 @@ section {
         display: block;
     }
 }
+
 
 /* ===================== HERO ===================== */
 .hero {
