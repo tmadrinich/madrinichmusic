@@ -2,48 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Madrinich Music</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      crossorigin="anonymous"
-    />
-
-    <!-- CSS -->
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-<!-- Sticky Header -->
-<header class="site-header">
-    <div class="header-container">
-        <a href="/">
-            <img src="/assets/mmlogo.png" alt="Madrinich Music Logo" class="header-logo">
-        </a>
+<div id="header"></div>
 
-        <nav class="nav">
-            <a href="/">Home</a>
-            <a href="/about/">About</a>
-            <a href="/services/">Services</a>
-            <a href="/contact/">Contact</a>
-        </nav>
-
-        <!-- Mobile Menu Button -->
-        <button class="menu-toggle" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-</header>
-
-<!-- Hero Section -->
 <section class="hero">
     <div class="container">
         <h1>Driven By Sound</h1>
@@ -52,75 +20,8 @@
     </div>
 </section>
 
-<!-- About Section -->
-<section class="section-light">
-    <div class="container">
-        <h2>About</h2>
-        <p>
-            Madrinich Music has collaborated with artists such as Angel Val, Karina Kern, 
-            Sarah Holdyn, Matt Mueller, and Whiskey Peddler Band, producing high-quality, 
-            authentic music experiences.
-        </p>
-    </div>
-</section>
+<div id="footer"></div>
 
-<!-- Social Links -->
-<div class="social-links">
-    <a href="https://www.facebook.com/madrinichmusic" target="_blank" aria-label="Facebook">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-    <a href="https://www.instagram.com/madrinichmusic" target="_blank" aria-label="Instagram">
-        <i class="fab fa-instagram"></i>
-    </a>
-    <a href="https://www.youtube.com/@madrinichmusic" target="_blank" aria-label="YouTube">
-        <i class="fab fa-youtube"></i>
-    </a>
-</div>
-
-<!-- Services Section -->
-<section class="section-dark">
-    <div class="container">
-        <h2>Services</h2>
-        <p><span class="accent">Management:</span> Expert guidance and support to grow artists’ careers.</p>
-        <p><span class="accent">Performance:</span> Live performance consulting and tour planning.</p>
-        <p><span class="accent">Production:</span> Professional music production and recording services.</p>
-    </div>
-</section>
-
-<!-- Contact Section -->
-<section class="section-light">
-    <div class="container">
-        <h2>Contact</h2>
-        <p>Reach out for collaborations, bookings, or production inquiries.</p>
-        <p>
-            Email:
-            <a href="mailto:info@madrinichmusic.com" class="accent">
-                info@madrinichmusic.com
-            </a>
-        </p>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer>
-    <p>&copy; 2026 Madrinich Music</p>
-</footer>
-
-<!-- Mobile Menu Script -->
-<script>
-    const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.nav');
-
-    menuToggle.addEventListener('click', () => {
-        nav.classList.toggle('active');
-    });
-
-    nav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            nav.classList.remove('active');
-        });
-    });
-</script>
-
+<script src="/main.js"></script>
 </body>
 </html>
