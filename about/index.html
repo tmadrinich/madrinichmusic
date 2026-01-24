@@ -12,20 +12,27 @@
     <link rel="stylesheet" href="/style.css">
 
     <style>
-        /* Artist cards */
+        /* Artist cards container */
         .artist-cards {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             margin-top: 30px;
+            justify-content: center;
         }
 
+        /* Square artist card */
         .artist-card {
-            flex: 1 1 200px;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
             background-color: #1F3D2B;
-            padding: 20px;
-            border-radius: 10px;
+            border-radius: 12px; /* Slightly rounded corners */
+            padding: 15px;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
@@ -34,12 +41,16 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
+        /* Artist image inside square */
         .artist-card img {
-            max-width: 100px;
-            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
             margin-bottom: 10px;
         }
 
+        /* Artist link styling */
         .artist-card a {
             color: #B08D57;
             font-weight: 700;
