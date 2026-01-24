@@ -47,94 +47,55 @@ section {
     top: 0;
     left: 0;
     width: 100%;
+    background: #0F2A1F;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
     z-index: 9999;
-    background-color: #0F2A1F;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 20px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 100px;
 }
 
-/* Header container as flex row with space between navs and logo */
 .header-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
+    justify-content: space-between; /* left nav, logo centered, right nav */
     position: relative;
+    height: 100%;
     padding: 0 40px;
 }
 
-/* Logo wrapper centered using absolute + transform */
-.logo-wrapper {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-}
-
-.header-logo {
-    height: 80px;
-    transition: all 0.3s ease;
-}
-
-/* Left and right navs */
+/* Left / right navs */
 .nav-left, .nav-right {
     display: flex;
     gap: 30px;
+    height: 100%;
+    align-items: center;
 }
 
-.nav-left { justify-content: flex-start; }
-.nav-right { justify-content: flex-end; }
-
-/* Links styling */
-.nav a {
+.nav-left a, .nav-right a {
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
     color: #F2EFEA;
     text-decoration: none;
-    letter-spacing: 0.05em;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .nav a.active {
-    color: #B08D57; 
-    border-bottom: 2px solid #B08D57;
+    color: #B08D57;
 }
 
 .nav a:hover {
     color: #B08D57;
 }
 
-/* Shrink header on scroll */
-.site-header.shrink {
-    padding: 10px 40px;
-}
-
-.site-header.shrink .header-logo {
-    height: 50px;
-}
-
-/* Hamburger menu */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
+/* Logo centered */
+.logo-wrapper {
     position: absolute;
-    right: 20px;
-    z-index: 1001;
-}
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-
 
-.menu-toggle span {
-    display: block;
-    width: 25px;
-    height: 2px;
-    background: #F2EFEA;
-    margin: 6px 0;
-}
 
 /* ===================== HERO ===================== */
 .hero {
