@@ -77,12 +77,14 @@ section {
     transition: height 0.3s ease;
 }
 
-/* NAVIGATION */
+/* NAVIGATION - fixed right side without overflowing */
 .nav {
-    position: absolute;
-    right: 40px;
     display: flex;
     gap: 30px;
+    font-weight: 700; /* all links bold */
+    position: relative; /* remove absolute positioning */
+    justify-content: flex-end; /* align items to right */
+    flex-wrap: wrap; /* wrap if too many links */
 }
 
 .nav a {
@@ -90,12 +92,16 @@ section {
     text-decoration: none;
     font-family: 'Oswald', sans-serif;
     letter-spacing: 0.08em;
-    font-weight: 700; /* ALL links bold by default */
 }
 
 .nav a:hover {
     color: #B08D57;
 }
+
+.nav a.active {
+    color: #B08D57;
+}
+
 
 /* SHRINK HEADER */
 .site-header.shrink {
