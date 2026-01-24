@@ -5,7 +5,16 @@ body {
     background-color: #0F2A1F;
     color: #F2EFEA;
     line-height: 1.6;
-    padding-top: 100px; /* OFFSET for sticky header */
+    padding-top: 100px; /* offset for sticky header */
+    transition: opacity 0.5s ease;
+}
+
+body.fade-in {
+    opacity: 0;
+}
+
+body.visible {
+    opacity: 1;
 }
 
 h1, h2, h3 {
@@ -18,6 +27,7 @@ h2 { font-size: 2rem; }
 
 p {
     font-size: 1rem;
+    color: #F2EFEA;
 }
 
 .accent {
@@ -56,7 +66,7 @@ section {
 .header-container {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* left nav, logo centered, right nav */
+    justify-content: space-between;
     position: relative;
     height: 100%;
     padding: 0 40px;
@@ -94,12 +104,58 @@ section {
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    align-
+    align-items: center;
+}
 
+.header-logo {
+    height: 80px;
+}
+
+/* Mobile toggle */
+.menu-toggle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        justify-content: center;
+        padding: 0 20px;
+    }
+
+    .nav-left, .nav-right {
+        display: none;
+    }
+
+    .nav.active {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #121212;
+        text-align: center;
+        padding: 20px 0;
+        gap: 15px;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .logo-wrapper {
+        position: relative;
+        transform: translateX(0);
+    }
+}
 
 /* ===================== HERO ===================== */
 .hero {
-    background-image: url('assets/hero.jpg');
+    background-image: url('/assets/hero.jpg');
     background-size: cover;
     background-position: center;
     color: #F2EFEA;
@@ -135,35 +191,7 @@ section {
     opacity: 0.9;
 }
 
-/* ===================== FOOTER ===================== */
-footer {
-    background-color: #0F2A1F;
-    color: #F2EFEA;
-    text-align: center;
-    padding: 40px 20px;
-}
-
-/* ===================== SOCIAL LINKS ===================== */
-.social-links {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 32px;
-}
-
-.social-links a {
-    font-size: 48px;
-    color: #F2EFEA;
-    text-decoration: none;
-    transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-.social-links a:hover {
-    transform: scale(1.2);
-    opacity: 0.8;
-}
-
-/* ===================== ARTIST CARDS ===================== */
+/* ===================== ABOUT PAGE / ARTIST CARDS ===================== */
 .artist-cards {
     display: flex;
     flex-wrap: wrap;
@@ -209,13 +237,16 @@ footer {
     font-size: 0.9rem;
 }
 
-/* North Central University link st*
+.no-link-style {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 700;
+}
 
-    /* ===================== CONTACT PAGE ===================== */
-.section-light .container {
+/* ===================== CONTACT PAGE ===================== */
+.contact-form {
     max-width: 600px;
     margin: 0 auto;
-    padding-top: 140px; /* offset for fixed header */
 }
 
 .contact-form label {
@@ -242,3 +273,50 @@ footer {
     background-color: rgba(176, 141, 87, 0.1);
 }
 
+/* ===================== FOOTER ===================== */
+footer {
+    background-color: #0F2A1F;
+    color: #F2EFEA;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* ===================== SOCIAL LINKS ===================== */
+.social-links {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+
+.social-links a {
+    font-size: 48px;
+    color: #F2EFEA;
+    text-decoration: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.social-links a:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+    }
+}
+
+/* ===================== CONTACT / HERO OFFSET ===================== */
+.section-light .container {
+    padding-top: 40px;
+}
+
+.section-dark .container {
+    padding-top: 40px;
+}
