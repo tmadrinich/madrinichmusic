@@ -111,7 +111,7 @@ section {
     height: 80px;
 }
 
-/* ===================== MOBILE HEADER ===================== */
+/* ===================== MOBILE HEADER WITH SLIDE ===================== */
 .menu-toggle {
     display: none; /* hide on desktop */
 }
@@ -125,26 +125,32 @@ section {
         position: relative;
     }
 
-    /* Hide nav menus by default */
+    /* Hide nav menus by default with slide effect */
     .nav-left,
     .nav-right {
-        display: none;
+        display: flex; /* keep flex for transition */
         flex-direction: column;
         width: 100%;
         background-color: #121212;
         text-align: center;
-        padding: 20px 0;
+        padding: 0;
         gap: 15px;
         position: absolute;
         top: 100%; /* below header */
         left: 0;
+        overflow: hidden;
+        max-height: 0; /* hidden initially */
+        opacity: 0;
+        transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
         z-index: 9999;
     }
 
     /* Show menu when active */
     .nav-left.active,
     .nav-right.active {
-        display: flex;
+        padding: 20px 0;
+        max-height: 500px; /* large enough to fit all items */
+        opacity: 1;
     }
 
     /* Hamburger toggle */
