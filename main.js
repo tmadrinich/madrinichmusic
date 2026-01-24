@@ -31,17 +31,21 @@ function initNav() {
     });
   });
 
-  // Active page styling
-  const path = window.location.pathname;
-  links.forEach(link => {
+// Active page styling
+const path = window.location.pathname.replace(/\/$/, ""); // remove trailing slash
+
+links.forEach(link => {
+    const page = link.dataset.page; // e.g., "services"
+    
+    // Check if path ends with page name or is home
     if (
-      (path === '/' && link.dataset.page === 'home') ||
-      path.includes(link.dataset.page)
+        (page === "home" && (path === "" || path === "/" || path === "/index.html")) ||
+        path.endsWith(page) || path.endsWith(page + "/index.html")
     ) {
-      link.classList.add('active');
+        link.classList.add("active");
     }
-  });
-}
+});
+
 
 // Show success message on contact form submission
 function showSuccessMessage() {
