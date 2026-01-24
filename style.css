@@ -103,7 +103,9 @@ section {
 .nav a.active {
     color: #B08D57;
     border-bottom: 2px solid #B08D57;
+    font-weight: 700;
 }
+
 
 /* SHRINK HEADER */
 .site-header.shrink {
