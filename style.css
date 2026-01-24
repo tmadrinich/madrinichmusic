@@ -274,5 +274,9 @@ footer {
     }
 }
 
+.nav a.active {
+    color: #B08D57;
+    border-bottom: 2px solid #B08D57;
+}
 
 
