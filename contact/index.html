@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Contact | Madrinich Music</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -13,12 +18,39 @@
 <section class="section-light">
     <div class="container">
         <h2>Contact</h2>
-        <p>Email us for bookings or collaborations.</p>
-        <p>
-            <a href="mailto:info@madrinichmusic.com" class="accent">
-                info@madrinichmusic.com
-            </a>
-        </p>
+        <p>Bookings, collaborations, or production inquiries — reach out below.</p>
+
+        <form
+            action="https://api.staticforms.xyz/submit"
+            method="POST"
+            class="contact-form"
+        >
+            <!-- StaticForms Required Fields -->
+            <input type="hidden" name="accessKey" value="sf_93kh4db2c9733c5bcdlf4cj5">
+            <input type="hidden" name="subject" value="New Madrinich Music Inquiry">
+            <input type="hidden" name="replyTo" value="@">
+            <input type="hidden" name="redirectTo" value="https://madrinichmusic.com/contact/?success=true">
+
+            <!-- Honeypot (spam protection) -->
+            <input type="text" name="honeypot" style="display:none">
+
+            <label>
+                Name
+                <input type="text" name="name" required>
+            </label>
+
+            <label>
+                Email
+                <input type="email" name="email" required>
+            </label>
+
+            <label>
+                Message
+                <textarea name="message" rows="6" required></textarea>
+            </label>
+
+            <button type="submit" class="btn">Send Message</button>
+        </form>
     </div>
 </section>
 
@@ -27,4 +59,3 @@
 <script src="/main.js"></script>
 </body>
 </html>
-
