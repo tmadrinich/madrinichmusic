@@ -62,3 +62,27 @@ function showSuccessMessage() {
     if (success) success.style.display = 'block';
   }
 }
+// Page Fade-In on Load
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('fade-in');
+    setTimeout(() => {
+        document.body.classList.add('visible');
+    }, 10); // small delay to trigger transition
+});
+
+// Page Fade-Out on Link Click
+const links = document.querySelectorAll('a[href^="/"]:not([target="_blank"])');
+
+links.forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+
+        document.body.classList.remove('visible');
+        document.body.classList.add('fade-exit-active');
+
+        setTimeout(() => {
+            window.location.href = href;
+        }, 500); // match your CSS transition duration
+    });
+});
