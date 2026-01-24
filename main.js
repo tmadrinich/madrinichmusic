@@ -1,5 +1,5 @@
-// =================== LOAD HEADER & FOOTER ===================
-fetch('./partials/header.html')
+// Load header & footer from root
+fetch('/partials/header.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('header').innerHTML = html;
@@ -10,7 +10,7 @@ fetch('./partials/header.html')
     initPageFade();
   });
 
-fetch('./partials/footer.html')
+fetch('/partials/footer.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('footer').innerHTML = html;
@@ -19,13 +19,13 @@ fetch('./partials/footer.html')
 // =================== MOBILE MENU + ACTIVE LINK ===================
 function initNav() {
   const menuToggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.nav'); // single nav element
+  const nav = document.querySelector('.nav'); // unified nav
 
   if (!nav || !menuToggle) return;
 
   const links = Array.from(nav.querySelectorAll('a'));
 
-  // Toggle mobile menu
+  // Mobile menu toggle
   menuToggle.addEventListener('click', () => {
     nav.classList.toggle('active');
   });
@@ -37,18 +37,15 @@ function initNav() {
     });
   });
 
-  // Highlight active page
-  const path = window.location.pathname.replace(/\/$/, "");
+  // Active page highlighting
+  const path = window.location.pathname.split("/").pop(); // filename only
 
   links.forEach(link => {
-    const page = link.dataset.page;
-    if (
-      (page === "home" && (path === "" || path.endsWith("index.html"))) ||
-      path.endsWith(page + ".html")
-    ) {
-      link.classList.add("active");
+    const href = link.getAttribute('href');
+    if (href === path || (href === "index.html" && path === "")) {
+      link.classList.add('active');
     } else {
-      link.classList.remove("active");
+      link.classList.remove('active');
     }
   });
 }
@@ -76,9 +73,7 @@ function initPageFade() {
   }, 10);
 
   // Fade-out on internal link click
-  const links = Array.from(document.querySelectorAll(
-    'a[href="index.html"], a[href="about.html"], a[href="services.html"], a[href="contact.html"], a[href="./index.html"], a[href="./about.html"], a[href="./services.html"], a[href="./contact.html"]'
-  ));
+  const links = Array.from(document.querySelectorAll('a[href$=".html"]:not([target="_blank"])'));
 
   links.forEach(link => {
     link.addEventListener('click', e => {
@@ -90,7 +85,7 @@ function initPageFade() {
 
       setTimeout(() => {
         window.location.href = href;
-      }, 500); // match CSS transition duration
+      }, 500);
     });
   });
 }
