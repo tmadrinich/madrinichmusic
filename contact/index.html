@@ -13,6 +13,7 @@
 </head>
 <body>
 
+<!-- Shared Header -->
 <div id="header"></div>
 
 <section class="section-light">
@@ -44,7 +45,7 @@
             <input type="hidden" name="replyTo" value="@">
             <input type="hidden" name="redirectTo" value="https://madrinichmusic.com/contact/?success=true">
 
-            <!-- Honeypot (spam protection) -->
+            <!-- Honeypot -->
             <input type="text" name="honeypot" style="display:none">
 
             <label>
@@ -67,18 +68,29 @@
     </div>
 </section>
 
+<!-- Footer -->
 <div id="footer"></div>
 
+<!-- Main JS -->
 <script src="/main.js"></script>
 
 <!-- Success Message Script -->
 <script>
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('success') === 'true') {
-        document.getElementById('contact-form').style.display = 'none';
-        document.getElementById('contact-intro').style.display = 'none';
-        document.getElementById('success-message').style.display = 'block';
+    function showSuccessMessage() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('success') === 'true') {
+            const form = document.getElementById('contact-form');
+            const intro = document.getElementById('contact-intro');
+            const success = document.getElementById('success-message');
+
+            if (form) form.style.display = 'none';
+            if (intro) intro.style.display = 'none';
+            if (success) success.style.display = 'block';
+        }
     }
+
+    // Run after header/footer loads
+    document.addEventListener('DOMContentLoaded', showSuccessMessage);
 </script>
 
 </body>
