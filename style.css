@@ -306,3 +306,9 @@ footer {
     margin-top: 20px;
 }
 
+#success-message {
+    margin-top: 40px;
+    padding: 30px;
+    border-left: 4px solid #B08D57;
+    background-color: rgba(176, 141, 87, 0.1);
+}
