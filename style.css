@@ -121,52 +121,56 @@ section {
 }
 
 @media (max-width: 768px) {
-    /* Header container */
     .header-container {
-        justify-content: center;
-        padding: 0 20px;
         position: relative;
+        height: 100px;
+        padding: 0 20px;
     }
 
-    /* Hide nav initially */
+    /* Hide nav by default */
     .nav {
         flex-direction: column;
-        width: 100%;
-        background-color: #121212;
-        text-align: center;
-        padding: 0;
-        gap: 15px;
         position: absolute;
         top: 100%; /* below header */
         left: 0;
+        width: 100%;
+        background-color: #121212;
         overflow: hidden;
         max-height: 0;
         opacity: 0;
+        text-align: center;
+        gap: 15px;
+        padding: 0;
         transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
         z-index: 9999;
     }
 
-    /* Show menu when active */
     .nav.active {
-        padding: 20px 0;
-        max-height: 500px; /* enough for all links */
+        max-height: 500px; /* enough to show all links */
         opacity: 1;
+        padding: 20px 0;
     }
 
-    /* Hamburger toggle */
+    /* Hamburger menu */
     .menu-toggle {
         display: block;
         position: absolute;
-        right: 20px;
         top: 50%;
+        right: 20px;
         transform: translateY(-50%);
+        font-size: 2rem;
+        cursor: pointer;
+        color: #F2EFEA;
+        z-index: 10000;
     }
 
-    /* Logo centered */
+    /* Logo centered on mobile */
     .logo-wrapper {
-        position: relative;
+        position: absolute;
         left: 50%;
-        transform: translateX(-50%);
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10001;
     }
 }
 
