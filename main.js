@@ -40,3 +40,11 @@ function initNav() {
   });
 }
 
+<script>
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('success') === 'true') {
+        document.getElementById('contact-form').style.display = 'none';
+        document.getElementById('contact-intro').style.display = 'none';
+        document.getElementById('success-message').style.display = 'block';
+    }
+</script>
