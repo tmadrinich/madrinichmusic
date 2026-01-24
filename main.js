@@ -1,10 +1,8 @@
-// Load header & footer from root
+// Load header & footer
 fetch('/partials/header.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('header').innerHTML = html;
-
-    // Initialize features after header exists
     initNav();
     showSuccessMessage();
     initPageFade();
@@ -19,13 +17,13 @@ fetch('/partials/footer.html')
 // =================== MOBILE MENU + ACTIVE LINK ===================
 function initNav() {
   const menuToggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.nav'); // unified nav
+  const nav = document.querySelector('.nav');
 
   if (!nav || !menuToggle) return;
 
   const links = Array.from(nav.querySelectorAll('a'));
 
-  // Mobile menu toggle
+  // Mobile toggle
   menuToggle.addEventListener('click', () => {
     nav.classList.toggle('active');
   });
@@ -37,12 +35,12 @@ function initNav() {
     });
   });
 
-  // Active page highlighting
-  const path = window.location.pathname.split("/").pop(); // filename only
+  // Active page highlighting based on folder
+  const path = window.location.pathname.split("/").filter(Boolean).shift() || "home";
 
   links.forEach(link => {
-    const href = link.getAttribute('href');
-    if (href === path || (href === "index.html" && path === "")) {
+    const page = link.dataset.page;
+    if (page === path || (page === "home" && path === "home")) {
       link.classList.add('active');
     } else {
       link.classList.remove('active');
@@ -66,14 +64,13 @@ function showSuccessMessage() {
 
 // =================== PAGE FADE TRANSITIONS ===================
 function initPageFade() {
-  // Fade-in on load
   document.body.classList.add('fade-in');
   setTimeout(() => {
     document.body.classList.add('visible');
   }, 10);
 
-  // Fade-out on internal link click
-  const links = Array.from(document.querySelectorAll('a[href$=".html"]:not([target="_blank"])'));
+  // Fade-out on internal links
+  const links = Array.from(document.querySelectorAll('a[href^="/"]:not([target="_blank"])'));
 
   links.forEach(link => {
     link.addEventListener('click', e => {
