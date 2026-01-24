@@ -353,20 +353,16 @@ footer {
     display: flex;
     gap: 24px;
     justify-content: center;
+    margin-top: 20px;
 }
 
 .social-links a {
-    display: inline-block;
+    color: #F2EFEA;
+    font-size: 36px;
     transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
 .social-links a:hover {
     transform: scale(1.2);
     opacity: 0.8;
-}
-
-.social-icon {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
 }
