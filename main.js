@@ -17,7 +17,7 @@ fetch('/partials/footer.html')
 // =================== MOBILE MENU + ACTIVE LINK ===================
 function initNav() {
   const menuToggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.nav');
+  const nav = document.querySelector('.nav'); // assumes one unified nav
 
   if (!nav || !menuToggle) return;
 
@@ -35,15 +35,20 @@ function initNav() {
     });
   });
 
-  // Active page highlighting based on folder
-  const path = window.location.pathname.split("/").filter(Boolean).shift() || "home";
-
+  // Active page highlighting
+  const path = window.location.pathname.replace(/\/$/, "").split("/").pop(); // last part of path
   links.forEach(link => {
     const page = link.dataset.page;
-    if (page === path || (page === "home" && path === "home")) {
-      link.classList.add('active');
+
+    // Handles root index.html, and folder/index.html
+    if (
+      (page === "home" && (path === "" || path === "index.html")) ||
+      path === page ||
+      path === (page + "/index.html")
+    ) {
+      link.classList.add("active");
     } else {
-      link.classList.remove('active');
+      link.classList.remove("active");
     }
   });
 }
