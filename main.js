@@ -5,6 +5,7 @@ fetch('/partials/header.html')
     document.getElementById('header').innerHTML = html;
     initNav();
     showSuccessMessage(); // Run success check after header loads
+    initPageFade(); // Setup fade after header loads
   });
 
 fetch('/partials/footer.html')
@@ -16,19 +17,23 @@ fetch('/partials/footer.html')
 // Mobile menu + active link
 function initNav() {
   const menuToggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.nav');
-  if (!nav) return; // Safety check
+  const navLeft = document.querySelector('.nav-left');
+  const navRight = document.querySelector('.nav-right');
 
-  const links = nav.querySelectorAll('a');
+  if (!navLeft || !navRight) return;
+
+  const links = [...navLeft.querySelectorAll('a'), ...navRight.querySelectorAll('a')];
 
   // Mobile menu toggle
   menuToggle.addEventListener('click', () => {
-    nav.classList.toggle('active');
+    navLeft.classList.toggle('active');
+    navRight.classList.toggle('active');
   });
 
   links.forEach(link => {
     link.addEventListener('click', () => {
-      nav.classList.remove('active');
+      navLeft.classList.remove('active');
+      navRight.classList.remove('active');
     });
   });
 
@@ -36,15 +41,16 @@ function initNav() {
   const path = window.location.pathname.replace(/\/$/, ""); // remove trailing slash
 
   links.forEach(link => {
-    const page = link.dataset.page; // e.g., "services"
+    const page = link.dataset.page;
 
-    // Check if path ends with page name or is home
     if (
       (page === "home" && (path === "" || path === "/" || path === "/index.html")) ||
       path.endsWith(page) ||
       path.endsWith(page + "/index.html")
     ) {
       link.classList.add("active");
+    } else {
+      link.classList.remove("active");
     }
   });
 }
@@ -62,27 +68,29 @@ function showSuccessMessage() {
     if (success) success.style.display = 'block';
   }
 }
-// Page Fade-In on Load
-document.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.add('fade-in');
-    setTimeout(() => {
-        document.body.classList.add('visible');
-    }, 10); // small delay to trigger transition
-});
 
-// Page Fade-Out on Link Click
-const links = document.querySelectorAll('a[href^="/"]:not([target="_blank"])');
+// ================= PAGE FADE TRANSITIONS =================
+function initPageFade() {
+  // Fade-in on load
+  document.body.classList.add('fade-in');
+  setTimeout(() => {
+    document.body.classList.add('visible');
+  }, 10);
 
-links.forEach(link => {
+  // Fade-out on link click (internal links only)
+  const links = Array.from(document.querySelectorAll('a[href^="/"]:not([target="_blank"])'));
+
+  links.forEach(link => {
     link.addEventListener('click', e => {
-        e.preventDefault();
-        const href = link.getAttribute('href');
+      e.preventDefault();
+      const href = link.getAttribute('href');
 
-        document.body.classList.remove('visible');
-        document.body.classList.add('fade-exit-active');
+      document.body.classList.remove('visible');
+      document.body.classList.add('fade-exit-active');
 
-        setTimeout(() => {
-            window.location.href = href;
-        }, 500); // match your CSS transition duration
+      setTimeout(() => {
+        window.location.href = href;
+      }, 500); // match your CSS transition duration
     });
-});
+  });
+}
