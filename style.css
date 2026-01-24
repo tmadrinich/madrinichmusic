@@ -5,7 +5,7 @@ body {
     background-color: #0F2A1F;
     color: #F2EFEA;
     line-height: 1.6;
-    padding-top: 100px; /* offset for sticky header */
+    padding-top: 100px; /* OFFSET for sticky header */
 }
 
 h1, h2, h3 {
@@ -18,12 +18,10 @@ h2 { font-size: 2rem; }
 
 p {
     font-size: 1rem;
-    color: #F2EFEA;
 }
 
 .accent {
     color: #B08D57;
-    font-weight: 700;
 }
 
 .container {
@@ -43,17 +41,19 @@ section {
     background-color: #0F2A1F;
 }
 
-/* HEADER */
+/* ===================== HEADER ===================== */
 .site-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 9999;
-    background: #0F2A1F;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    background-color: #0F2A1F;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     padding: 20px 40px;
-    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Header container as flex row with space between navs and logo */
@@ -62,11 +62,12 @@ section {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    max-width: 1200px;
     position: relative;
     padding: 0 40px;
 }
 
-/* Logo wrapper centered using absolute + transform trick */
+/* Logo wrapper centered using absolute + transform */
 .logo-wrapper {
     position: absolute;
     left: 50%;
@@ -75,9 +76,9 @@ section {
     align-items: center;
 }
 
-/* Logo sizing */
 .header-logo {
     height: 80px;
+    transition: all 0.3s ease;
 }
 
 /* Left and right navs */
@@ -86,63 +87,53 @@ section {
     gap: 30px;
 }
 
-/* Right nav stays on the right */
-.nav-right {
-    justify-content: flex-end;
-}
+.nav-left { justify-content: flex-start; }
+.nav-right { justify-content: flex-end; }
 
-/* Links */
+/* Links styling */
 .nav a {
     font-family: 'Oswald', sans-serif;
-    font-weight: 700; /* make all bold */
+    font-weight: 700;
     color: #F2EFEA;
     text-decoration: none;
+    letter-spacing: 0.05em;
 }
 
 .nav a.active {
-    color: #B08D57;
+    color: #B08D57; 
+    border-bottom: 2px solid #B08D57;
 }
 
 .nav a:hover {
     color: #B08D57;
 }
 
-/* Mobile toggle */
-.menu-toggle {
-    display: none;
+/* Shrink header on scroll */
+.site-header.shrink {
+    padding: 10px 40px;
 }
 
-@media (max-width: 768px) {
-    .header-container {
-        justify-content: center;
-    }
+.site-header.shrink .header-logo {
+    height: 50px;
+}
 
-    .nav-left, .nav-right {
-        display: none;
-    }
+/* Hamburger menu */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    z-index: 1001;
+}
 
-    .nav.active {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background-color: #121212;
-        text-align: center;
-        padding: 20px 0;
-    }
-
-    .menu-toggle {
-        display: block;
-        position: absolute;
-        right: 20px;
-    }
-
-    .logo-wrapper {
-        position: relative;
-        transform: translateX(0);
-    }
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: #F2EFEA;
+    margin: 6px 0;
 }
 
 /* ===================== HERO ===================== */
@@ -151,12 +142,10 @@ section {
     background-size: cover;
     background-position: center;
     color: #F2EFEA;
-
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-
     min-height: calc(100vh - 100px);
 }
 
@@ -213,40 +202,6 @@ footer {
     opacity: 0.8;
 }
 
-/* ===================== CONTACT FORM ===================== */
-.contact-form {
-    max-width: 600px;
-    margin-top: 40px;
-}
-
-.contact-form label {
-    display: block;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    border: none;
-    border-radius: 4px;
-    font-family: 'Lato', sans-serif;
-}
-
-.contact-form button {
-    margin-top: 20px;
-}
-
-/* Success Message */
-#success-message {
-    margin-top: 40px;
-    padding: 30px;
-    border-left: 4px solid #B08D57;
-    background-color: rgba(176, 141, 87, 0.1);
-}
-
 /* ===================== ARTIST CARDS ===================== */
 .artist-cards {
     display: flex;
@@ -284,7 +239,7 @@ footer {
     bottom: 0;
     width: 100%;
     background: rgba(0,0,0,0.6);
-    color: #F2EFEA;
+    color: #ffffff;
     font-weight: 700;
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
@@ -293,32 +248,4 @@ footer {
     font-size: 0.9rem;
 }
 
-/* ===================== LINKS ===================== */
-.no-link-style {
-    color: inherit;
-    text-decoration: none;
-    font-weight: 700;
-}
-
-/* ===================== RESPONSIVE ===================== */
-@media (max-width: 768px) {
-    .header-container {
-        flex-direction: column;
-    }
-
-    .nav {
-        margin-top: 10px;
-    }
-
-    .nav a {
-        margin: 0 15px;
-    }
-
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero p {
-        font-size: 1.2rem;
-    }
-}
+/* North Central University link st*
