@@ -1,5 +1,5 @@
 // =================== LOAD HEADER & FOOTER ===================
-fetch('partials/header.html')
+fetch('./partials/header.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('header').innerHTML = html;
@@ -10,7 +10,7 @@ fetch('partials/header.html')
     initPageFade();
   });
 
-fetch('partials/footer.html')
+fetch('./partials/footer.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('footer').innerHTML = html;
@@ -19,13 +19,13 @@ fetch('partials/footer.html')
 // =================== MOBILE MENU + ACTIVE LINK ===================
 function initNav() {
   const menuToggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.nav'); // unified nav
+  const nav = document.querySelector('.nav'); // single nav element
 
   if (!nav || !menuToggle) return;
 
   const links = Array.from(nav.querySelectorAll('a'));
 
-  // Mobile menu toggle
+  // Toggle mobile menu
   menuToggle.addEventListener('click', () => {
     nav.classList.toggle('active');
   });
@@ -37,15 +37,18 @@ function initNav() {
     });
   });
 
-  // Active page highlighting
-  const currentFile = window.location.pathname.split("/").pop() || "index.html";
+  // Highlight active page
+  const path = window.location.pathname.replace(/\/$/, "");
 
   links.forEach(link => {
-    const href = link.getAttribute('href');
-    if (href === currentFile || (href === "index.html" && currentFile === "")) {
-      link.classList.add('active');
+    const page = link.dataset.page;
+    if (
+      (page === "home" && (path === "" || path.endsWith("index.html"))) ||
+      path.endsWith(page + ".html")
+    ) {
+      link.classList.add("active");
     } else {
-      link.classList.remove('active');
+      link.classList.remove("active");
     }
   });
 }
@@ -72,12 +75,12 @@ function initPageFade() {
     document.body.classList.add('visible');
   }, 10);
 
-  // Fade-out on internal link click (only your pages)
-  const internalLinks = Array.from(document.querySelectorAll(
-    'a[href="index.html"], a[href="about.html"], a[href="services.html"], a[href="contact.html"]'
+  // Fade-out on internal link click
+  const links = Array.from(document.querySelectorAll(
+    'a[href="index.html"], a[href="about.html"], a[href="services.html"], a[href="contact.html"], a[href="./index.html"], a[href="./about.html"], a[href="./services.html"], a[href="./contact.html"]'
   ));
 
-  internalLinks.forEach(link => {
+  links.forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const href = link.getAttribute('href');
