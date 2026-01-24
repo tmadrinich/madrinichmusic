@@ -210,3 +210,35 @@ footer {
 }
 
 /* North Central University link st*
+
+    /* ===================== CONTACT PAGE ===================== */
+.section-light .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-top: 140px; /* offset for fixed header */
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: #F2EFEA;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Lato', sans-serif;
+}
+
+#success-message {
+    margin-top: 20px;
+    padding: 20px;
+    border-left: 4px solid #B08D57;
+    background-color: rgba(176, 141, 87, 0.1);
+}
+
