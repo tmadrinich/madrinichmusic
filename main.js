@@ -3,9 +3,11 @@ fetch('/partials/header.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('header').innerHTML = html;
+
+    // Delay querying elements until header exists in DOM
     initNav();
-    showSuccessMessage(); // Run success check after header loads
-    initPageFade(); // Setup fade after header loads
+    showSuccessMessage();
+    initPageFade();
   });
 
 fetch('/partials/footer.html')
