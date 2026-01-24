@@ -33,10 +33,17 @@ function initNav() {
   });
 
   // Active link highlighting
-  const path = window.location.pathname.split("/").pop(); // get last part
+  const pathSegments = window.location.pathname.split("/").filter(Boolean); // remove empty
+  const currentPage = pathSegments.pop() || "index.html"; // last part, e.g. "index.html"
+
   links.forEach(link => {
-    const page = link.getAttribute('href').split("/").pop();
-    if (page === path || (path === "" && page === "index.html")) {
+    const pageAttr = link.dataset.page; // "home", "about", etc.
+    
+    // Determine if this link should be active
+    if (
+      (pageAttr === "home" && (currentPage === "index.html" || currentPage === "")) ||
+      (pageAttr && currentPage.startsWith(pageAttr))
+    ) {
       link.classList.add("active");
     } else {
       link.classList.remove("active");
