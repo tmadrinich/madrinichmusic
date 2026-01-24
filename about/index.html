@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/style.css">
 
     <style>
-        /* Artist cards container */
+        /* ===================== ARTIST CARDS ===================== */
         .artist-cards {
             display: flex;
             flex-wrap: wrap;
@@ -21,13 +21,12 @@
             justify-content: center;
         }
 
-        /* Square artist card with full image */
         .artist-card {
             position: relative;
             width: 180px;
             height: 180px;
-            border-radius: 12px; /* Slightly rounded corners */
-            overflow: hidden; /* Clip the image to rounded corners */
+            border-radius: 12px;
+            overflow: hidden;
             background-color: #1F3D2B;
             transition: transform 0.2s, box-shadow 0.2s;
             cursor: pointer;
@@ -38,7 +37,6 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        /* Full-cover artist image */
         .artist-card img {
             width: 100%;
             height: 100%;
@@ -46,13 +44,12 @@
             display: block;
         }
 
-        /* Overlay for artist name */
         .artist-card div {
             position: absolute;
             bottom: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.6); /* semi-transparent overlay */
-            color: #ffffff; /* brand white */
+            background: rgba(0,0,0,0.6);
+            color: #F2EFEA; /* brand white */
             font-weight: 700;
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
@@ -61,7 +58,7 @@
             font-size: 0.9rem;
         }
 
-        /* Style North Central University link as normal bold text */
+        /* Bold link styling for North Central University without color */
         .no-link-style {
             color: inherit;
             text-decoration: none;
@@ -71,8 +68,10 @@
 </head>
 <body>
 
+<!-- Shared Header -->
 <div id="header"></div>
 
+<!-- About Section -->
 <section class="section-light">
     <div class="container">
         <h2>About Madrinich Music</h2>
@@ -117,8 +116,11 @@
     </div>
 </section>
 
+<!-- Footer -->
 <div id="footer"></div>
 
+<!-- Main JS -->
 <script src="/main.js"></script>
+
 </body>
 </html>
