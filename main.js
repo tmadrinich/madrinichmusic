@@ -17,23 +17,21 @@ fetch('/partials/footer.html')
 // Mobile menu + active link
 function initNav() {
   const menuToggle = document.querySelector('.menu-toggle');
-  const navLeft = document.querySelector('.nav-left');
-  const navRight = document.querySelector('.nav-right');
+  const nav = document.querySelector('.nav'); // unified nav
 
-  if (!navLeft || !navRight) return;
+  if (!nav || !menuToggle) return;
 
-  const links = [...navLeft.querySelectorAll('a'), ...navRight.querySelectorAll('a')];
+  const links = Array.from(nav.querySelectorAll('a'));
 
   // Mobile menu toggle
   menuToggle.addEventListener('click', () => {
-    navLeft.classList.toggle('active');
-    navRight.classList.toggle('active');
+    nav.classList.toggle('active');
   });
 
+  // Close menu on link click
   links.forEach(link => {
     link.addEventListener('click', () => {
-      navLeft.classList.remove('active');
-      navRight.classList.remove('active');
+      nav.classList.remove('active');
     });
   });
 
