@@ -1,4 +1,4 @@
-// Load header & footer
+// =================== LOAD HEADER & FOOTER ===================
 fetch('partials/header.html')
   .then(res => res.text())
   .then(html => {
@@ -38,19 +38,14 @@ function initNav() {
   });
 
   // Active page highlighting
-  const path = window.location.pathname.replace(/\/$/, ""); // remove trailing slash
+  const currentFile = window.location.pathname.split("/").pop() || "index.html";
 
   links.forEach(link => {
-    const page = link.dataset.page;
-
-    if (
-      (page === "home" && (path === "" || path === "/" || path.endsWith("index.html"))) ||
-      path.endsWith(page) ||
-      path.endsWith(page + "/index.html")
-    ) {
-      link.classList.add("active");
+    const href = link.getAttribute('href');
+    if (href === currentFile || (href === "index.html" && currentFile === "")) {
+      link.classList.add('active');
     } else {
-      link.classList.remove("active");
+      link.classList.remove('active');
     }
   });
 }
@@ -77,10 +72,12 @@ function initPageFade() {
     document.body.classList.add('visible');
   }, 10);
 
-  // Fade-out on internal link click
-  const links = Array.from(document.querySelectorAll('a[href^="./"]:not([target="_blank"]), a[href^="index.html"], a[href^="about.html"], a[href^="services.html"], a[href^="contact.html"]'));
+  // Fade-out on internal link click (only your pages)
+  const internalLinks = Array.from(document.querySelectorAll(
+    'a[href="index.html"], a[href="about.html"], a[href="services.html"], a[href="contact.html"]'
+  ));
 
-  links.forEach(link => {
+  internalLinks.forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const href = link.getAttribute('href');
