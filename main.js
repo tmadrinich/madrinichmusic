@@ -14,8 +14,9 @@ fetch('/partials/footer.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('footer').innerHTML = html;
-    initSocialLinks(); // Initialize social links if needed
+    initSocialLinks(); // THIS ensures social icons appear on all pages
   });
+
 
 // ===================== MOBILE & DESKTOP NAV =====================
 function initNav() {
