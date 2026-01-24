@@ -1,5 +1,14 @@
+// Determine correct relative path based on folder depth
+function getPartialPath(file) {
+  const depth = window.location.pathname.split("/").filter(Boolean).length;
+  let prefix = "./";
+  if (depth === 0) prefix = "./";        // root
+  else prefix = "../".repeat(depth - 1); // subfolder
+  return prefix + "partials/" + file;
+}
+
 // ===== Load header & footer =====
-fetch('/partials/header.html')
+fetch(getPartialPath("header.html"))
   .then(res => res.text())
   .then(html => {
     document.getElementById('header').innerHTML = html;
@@ -8,26 +17,23 @@ fetch('/partials/header.html')
     initPageFade();
   });
 
-fetch('/partials/footer.html')
+fetch(getPartialPath("footer.html"))
   .then(res => res.text())
   .then(html => {
     document.getElementById('footer').innerHTML = html;
-    // No extra init needed for FontAwesome links; they render automatically
   });
 
-// ===== NAVIGATION (Desktop + Mobile) =====
+// ===== NAVIGATION =====
 function initNav() {
   const menuToggle = document.querySelector('.menu-toggle');
   const navLeft = document.querySelector('.nav-left');
   const navRight = document.querySelector('.nav-right');
 
-  // Mobile toggle
   menuToggle?.addEventListener('click', () => {
     navLeft.classList.toggle('active');
     navRight.classList.toggle('active');
   });
 
-  // Close mobile nav when a link is clicked
   const links = [...navLeft.querySelectorAll('a'), ...navRight.querySelectorAll('a')];
   links.forEach(link => {
     link.addEventListener('click', () => {
@@ -37,15 +43,15 @@ function initNav() {
   });
 }
 
-// ===== HIGHLIGHT ACTIVE PAGE =====
+// ===== ACTIVE PAGE HIGHLIGHT =====
 function highlightActivePage() {
-  const path = window.location.pathname.replace(/\/$/, "");
+  const path = window.location.pathname.split("/").filter(Boolean).pop() || "index.html";
   const links = document.querySelectorAll('.nav a');
 
   links.forEach(link => {
     const page = link.dataset.page;
     if (
-      (page === "home" && (path === "" || path.endsWith("index.html"))) ||
+      (page === "home" && path === "index.html") ||
       path.includes(page)
     ) {
       link.classList.add("active");
@@ -55,7 +61,7 @@ function highlightActivePage() {
   });
 }
 
-// ===== CONTACT FORM SUCCESS MESSAGE =====
+// ===== CONTACT SUCCESS MESSAGE =====
 function showSuccessMessage() {
   const params = new URLSearchParams(window.location.search);
   if (params.get('success') === 'true') {
@@ -72,7 +78,7 @@ function initPageFade() {
     document.body.classList.add('visible');
   }, 10);
 
-  const links = document.querySelectorAll('a[href^="/"]:not([target="_blank"])');
+  const links = document.querySelectorAll('a[href^="./"], a[href$=".html"]:not([target="_blank"])');
   links.forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
