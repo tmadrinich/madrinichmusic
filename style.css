@@ -334,3 +334,39 @@ footer {
 .section-dark .container {
     padding-top: 40px;
 }
+footer {
+    background-color: #0F2A1F;
+    color: #F2EFEA;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Social links */
+.social-links {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+}
+
+.social-links a {
+    display: inline-block;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.social-links a:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+.social-icon {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
