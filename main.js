@@ -1,22 +1,22 @@
 // Load header & footer
-fetch('/partials/header.html')
+fetch('partials/header.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('header').innerHTML = html;
 
-    // Delay querying elements until header exists in DOM
+    // Initialize features after header exists
     initNav();
     showSuccessMessage();
     initPageFade();
   });
 
-fetch('/partials/footer.html')
+fetch('partials/footer.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('footer').innerHTML = html;
   });
 
-// Mobile menu + active link
+// =================== MOBILE MENU + ACTIVE LINK ===================
 function initNav() {
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav'); // unified nav
@@ -30,21 +30,21 @@ function initNav() {
     nav.classList.toggle('active');
   });
 
-  // Close menu on link click
+  // Close menu when a link is clicked
   links.forEach(link => {
     link.addEventListener('click', () => {
       nav.classList.remove('active');
     });
   });
 
-  // Active page styling
+  // Active page highlighting
   const path = window.location.pathname.replace(/\/$/, ""); // remove trailing slash
 
   links.forEach(link => {
     const page = link.dataset.page;
 
     if (
-      (page === "home" && (path === "" || path === "/" || path === "/index.html")) ||
+      (page === "home" && (path === "" || path === "/" || path.endsWith("index.html"))) ||
       path.endsWith(page) ||
       path.endsWith(page + "/index.html")
     ) {
@@ -55,7 +55,7 @@ function initNav() {
   });
 }
 
-// Show success message on contact form submission
+// =================== CONTACT SUCCESS MESSAGE ===================
 function showSuccessMessage() {
   const params = new URLSearchParams(window.location.search);
   if (params.get('success') === 'true') {
@@ -69,7 +69,7 @@ function showSuccessMessage() {
   }
 }
 
-// ================= PAGE FADE TRANSITIONS =================
+// =================== PAGE FADE TRANSITIONS ===================
 function initPageFade() {
   // Fade-in on load
   document.body.classList.add('fade-in');
@@ -77,8 +77,8 @@ function initPageFade() {
     document.body.classList.add('visible');
   }, 10);
 
-  // Fade-out on link click (internal links only)
-  const links = Array.from(document.querySelectorAll('a[href^="/"]:not([target="_blank"])'));
+  // Fade-out on internal link click
+  const links = Array.from(document.querySelectorAll('a[href^="./"]:not([target="_blank"]), a[href^="index.html"], a[href^="about.html"], a[href^="services.html"], a[href^="contact.html"]'));
 
   links.forEach(link => {
     link.addEventListener('click', e => {
@@ -90,7 +90,7 @@ function initPageFade() {
 
       setTimeout(() => {
         window.location.href = href;
-      }, 500); // match your CSS transition duration
+      }, 500); // match CSS transition duration
     });
   });
 }
