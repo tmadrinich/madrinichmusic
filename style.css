@@ -43,19 +43,23 @@ section {
 
 /* ===================== HEADER ===================== */
 .site-header {
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 1000;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+
     background: #0F2A1F;
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    transition: padding 0.3s ease;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 20px 40px;
     min-height: 100px;
 }
+
 
 .header-container {
     display: flex;
