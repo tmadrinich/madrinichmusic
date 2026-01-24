@@ -59,3 +59,53 @@
 <script src="/main.js"></script>
 </body>
 </html>
+<section class="section-light">
+    <div class="container">
+        <h2>Contact</h2>
+        <p id="contact-intro">
+            Bookings, collaborations, or production inquiries — reach out below.
+        </p>
+
+        <!-- Success Message -->
+        <div id="success-message" style="display:none;">
+            <h3 class="accent">Thanks for reaching out!</h3>
+            <p>
+                Your message has been sent successfully.  
+                We’ll be in touch as soon as possible.
+            </p>
+        </div>
+
+        <!-- Contact Form -->
+        <form
+            id="contact-form"
+            action="https://api.staticforms.xyz/submit"
+            method="POST"
+            class="contact-form"
+        >
+            <input type="hidden" name="accessKey" value="sf_93kh4db2c9733c5bcdlf4cj5">
+            <input type="hidden" name="subject" value="New Madrinich Music Inquiry">
+            <input type="hidden" name="replyTo" value="@">
+            <input type="hidden" name="redirectTo" value="https://madrinichmusic.com/contact/?success=true">
+
+            <!-- Honeypot -->
+            <input type="text" name="honeypot" style="display:none">
+
+            <label>
+                Name
+                <input type="text" name="name" required>
+            </label>
+
+            <label>
+                Email
+                <input type="email" name="email" required>
+            </label>
+
+            <label>
+                Message
+                <textarea name="message" rows="6" required></textarea>
+            </label>
+
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </div>
+</section>
