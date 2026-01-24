@@ -4,7 +4,52 @@
     <meta charset="UTF-8">
     <title>About | Madrinich Music</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="/style.css">
+
+    <style>
+        /* Artist cards */
+        .artist-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .artist-card {
+            flex: 1 1 200px;
+            text-align: center;
+            background-color: #1F3D2B;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .artist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .artist-card img {
+            max-width: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .artist-card a {
+            color: #B08D57;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .artist-card a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
@@ -14,8 +59,42 @@
     <div class="container">
         <h2>About Madrinich Music</h2>
         <p>
-            Madrinich Music collaborates with artists to create authentic,
-            professional music experiences rooted in passion and performance.
+            With nearly 20 years of experience in the music industry, I’ve dedicated my life to creating, performing, and producing music that resonates. I hold a B.A. in <strong>Music Business</strong> from <a href="https://www.northcentralcollege.edu" target="_blank" rel="noopener">North Central University</a>, where I honed my skills in artist management, production, and the business side of music.
+        </p>
+        <p>
+            Over the years, I’ve had the privilege of collaborating with local and touring artists, including the talented individuals below. These experiences have shaped my approach to music production and performance, combining professionalism with authenticity and passion.
+        </p>
+
+        <!-- Artist Cards -->
+        <div class="artist-cards">
+            <div class="artist-card">
+                <a href="https://www.instagram.com/mattmuellermusic" target="_blank" rel="noopener">
+                    <img src="/assets/mattmueller.jpg" alt="Matt Mueller">
+                    <div>Matt Mueller</div>
+                </a>
+            </div>
+            <div class="artist-card">
+                <a href="https://www.instagram.com/angelvalmusic" target="_blank" rel="noopener">
+                    <img src="/assets/angelval.jpg" alt="Angel Val">
+                    <div>Angel Val</div>
+                </a>
+            </div>
+            <div class="artist-card">
+                <a href="https://www.instagram.com/whiskeypeddler" target="_blank" rel="noopener">
+                    <img src="/assets/whiskeypeddler.jpg" alt="Whiskey Peddler Band">
+                    <div>Whiskey Peddler Band</div>
+                </a>
+            </div>
+            <div class="artist-card">
+                <a href="https://www.instagram.com/joejacobsmusic" target="_blank" rel="noopener">
+                    <img src="/assets/joejacobs.jpg" alt="Joe Jacobs">
+                    <div>Joe Jacobs</div>
+                </a>
+            </div>
+        </div>
+
+        <p style="margin-top:30px;">
+            Whether it’s managing projects, producing tracks, or performing live, my goal is always to help artists shine and connect with their audience in meaningful ways.
         </p>
     </div>
 </section>
@@ -25,4 +104,3 @@
 <script src="/main.js"></script>
 </body>
 </html>
-
