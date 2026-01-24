@@ -1,12 +1,10 @@
-// ===================== LOAD HEADER & FOOTER =====================
+// ===== Load header & footer =====
 fetch('/partials/header.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('header').innerHTML = html;
-
-    // Initialize nav, success message, and page fade AFTER header is in DOM
     initNav();
-    showSuccessMessage();
+    highlightActivePage();
     initPageFade();
   });
 
@@ -14,92 +12,76 @@ fetch('/partials/footer.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('footer').innerHTML = html;
-    initSocialLinks(); // THIS ensures social icons appear on all pages
+    // No extra init needed for FontAwesome links; they render automatically
   });
 
-
-// ===================== MOBILE & DESKTOP NAV =====================
+// ===== NAVIGATION (Desktop + Mobile) =====
 function initNav() {
   const menuToggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.nav'); // unified nav
+  const navLeft = document.querySelector('.nav-left');
+  const navRight = document.querySelector('.nav-right');
 
-  if (!nav || !menuToggle) return;
-
-  const links = Array.from(nav.querySelectorAll('a'));
-
-  // Mobile menu toggle
-  menuToggle.addEventListener('click', () => {
-    nav.classList.toggle('active');
+  // Mobile toggle
+  menuToggle?.addEventListener('click', () => {
+    navLeft.classList.toggle('active');
+    navRight.classList.toggle('active');
   });
 
-  // Close menu when link clicked
+  // Close mobile nav when a link is clicked
+  const links = [...navLeft.querySelectorAll('a'), ...navRight.querySelectorAll('a')];
   links.forEach(link => {
     link.addEventListener('click', () => {
-      nav.classList.remove('active');
+      navLeft.classList.remove('active');
+      navRight.classList.remove('active');
     });
   });
+}
 
-  // Active page highlighting
-  const path = window.location.pathname.split("/").pop() || 'index.html';
+// ===== HIGHLIGHT ACTIVE PAGE =====
+function highlightActivePage() {
+  const path = window.location.pathname.replace(/\/$/, "");
+  const links = document.querySelectorAll('.nav a');
+
   links.forEach(link => {
-    const href = link.getAttribute('href');
-
+    const page = link.dataset.page;
     if (
-      (href === 'index.html' && (path === '' || path === 'index.html')) ||
-      href === path
+      (page === "home" && (path === "" || path.endsWith("index.html"))) ||
+      path.includes(page)
     ) {
-      link.classList.add('active');
+      link.classList.add("active");
     } else {
-      link.classList.remove('active');
+      link.classList.remove("active");
     }
   });
 }
 
-// ===================== CONTACT SUCCESS MESSAGE =====================
+// ===== CONTACT FORM SUCCESS MESSAGE =====
 function showSuccessMessage() {
   const params = new URLSearchParams(window.location.search);
   if (params.get('success') === 'true') {
-    const form = document.getElementById('contact-form');
-    const intro = document.getElementById('contact-intro');
-    const success = document.getElementById('success-message');
-
-    if (form) form.style.display = 'none';
-    if (intro) intro.style.display = 'none';
-    if (success) success.style.display = 'block';
+    document.getElementById('contact-form')?.style.display = 'none';
+    document.getElementById('contact-intro')?.style.display = 'none';
+    document.getElementById('success-message')?.style.display = 'block';
   }
 }
 
-// ===================== PAGE FADE TRANSITIONS =====================
+// ===== PAGE FADE TRANSITIONS =====
 function initPageFade() {
   document.body.classList.add('fade-in');
   setTimeout(() => {
     document.body.classList.add('visible');
   }, 10);
 
-  // Internal links fade out
-  const links = Array.from(document.querySelectorAll(
-    'a[href$=".html"]:not([target="_blank"])'
-  ));
-
+  const links = document.querySelectorAll('a[href^="/"]:not([target="_blank"])');
   links.forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const href = link.getAttribute('href');
-
       document.body.classList.remove('visible');
       document.body.classList.add('fade-exit-active');
-
       setTimeout(() => {
         window.location.href = href;
       }, 500);
     });
-  });
-}
-
-// ===================== SOCIAL LINKS (OPTIONAL INIT) =====================
-function initSocialLinks() {
-  const socialLinks = document.querySelectorAll('.social-links a');
-  socialLinks.forEach(link => {
-    link.setAttribute('target', '_blank'); // open in new tab
   });
 }
