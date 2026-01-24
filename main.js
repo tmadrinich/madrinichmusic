@@ -21,6 +21,7 @@ function initNav() {
 
   const links = nav.querySelectorAll('a');
 
+  // Mobile menu toggle
   menuToggle.addEventListener('click', () => {
     nav.classList.toggle('active');
   });
@@ -31,21 +32,22 @@ function initNav() {
     });
   });
 
-// Active page styling
-const path = window.location.pathname.replace(/\/$/, ""); // remove trailing slash
+  // Active page styling
+  const path = window.location.pathname.replace(/\/$/, ""); // remove trailing slash
 
-links.forEach(link => {
+  links.forEach(link => {
     const page = link.dataset.page; // e.g., "services"
-    
+
     // Check if path ends with page name or is home
     if (
-        (page === "home" && (path === "" || path === "/" || path === "/index.html")) ||
-        path.endsWith(page) || path.endsWith(page + "/index.html")
+      (page === "home" && (path === "" || path === "/" || path === "/index.html")) ||
+      path.endsWith(page) ||
+      path.endsWith(page + "/index.html")
     ) {
-        link.classList.add("active");
+      link.classList.add("active");
     }
-});
-
+  });
+}
 
 // Show success message on contact form submission
 function showSuccessMessage() {
