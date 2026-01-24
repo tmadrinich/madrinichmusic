@@ -1,11 +1,15 @@
 /* ===================== BASE STYLES ===================== */
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Lato', sans-serif;
     background-color: #0F2A1F;
     color: #F2EFEA;
     line-height: 1.6;
-    padding-top: 100px; /* OFFSET FOR STICKY HEADER */
+    padding-top: 100px; /* OFFSET FOR FIXED HEADER */
 }
 
 h1, h2, h3 {
@@ -27,6 +31,7 @@ p {
 .container {
     max-width: 1100px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 section {
@@ -53,19 +58,21 @@ section {
     border-bottom: 1px solid rgba(255,255,255,0.05);
 
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 
-    padding: 20px 40px;
+    padding: 20px 0;
     min-height: 100px;
 }
 
-
 .header-container {
+    max-width: 1100px;
+    width: 100%;
+    padding: 0 40px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
     position: relative;
 }
 
@@ -75,18 +82,21 @@ section {
     transition: height 0.3s ease;
 }
 
-/* NAV */
+/* NAVIGATION */
 .nav {
     position: absolute;
     right: 40px;
-}
 
+    display: flex;
+    gap: 30px;
+}
 
 .nav a {
     color: #F2EFEA;
     text-decoration: none;
     font-family: 'Oswald', sans-serif;
     letter-spacing: 0.08em;
+    padding-bottom: 4px;
 }
 
 .nav a:hover,
@@ -97,7 +107,7 @@ section {
 
 /* SHRINK HEADER */
 .site-header.shrink {
-    padding: 10px 40px;
+    padding: 10px 0;
 }
 
 .site-header.shrink .header-logo {
@@ -110,8 +120,10 @@ section {
     background: none;
     border: none;
     cursor: pointer;
+
     position: absolute;
     right: 40px;
+    z-index: 10000;
 }
 
 .menu-toggle span {
@@ -124,15 +136,18 @@ section {
 
 @media (max-width: 768px) {
     .nav {
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 100px;
+        left: 0;
         right: 0;
-        background: #121212;
+
         flex-direction: column;
+        background: #121212;
         width: 100%;
         text-align: center;
-        display: none;
         padding: 20px 0;
+
+        display: none;
     }
 
     .nav.active {
@@ -149,14 +164,14 @@ section {
     background-image: url('assets/hero.jpg');
     background-size: cover;
     background-position: center;
-    color: #F2EFEA;
 
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
 
-    min-height: calc(100vh - 100px);
+    min-height: 100vh;
+    color: #F2EFEA;
 }
 
 .hero h1 {
