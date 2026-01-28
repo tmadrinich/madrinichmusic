@@ -1,9 +1,9 @@
 /* =====================================================
    MADRINICH MUSIC – GLOBAL STYLESHEET
-   Cleaned + Unified
+   Final, Cleaned, Production-Ready
 ===================================================== */
 
-/* ===================== CSS RESET / BASE ===================== */
+/* ===================== RESET / BASE ===================== */
 
 * {
   box-sizing: border-box;
@@ -19,8 +19,12 @@ body {
   transition: opacity 0.5s ease;
 }
 
+/* Page transitions */
 body.fade-in { opacity: 0; }
 body.visible { opacity: 1; }
+body.fade-exit-active { opacity: 0; }
+
+/* Typography */
 
 h1, h2, h3 {
   font-family: 'Oswald', sans-serif;
@@ -28,12 +32,14 @@ h1, h2, h3 {
 }
 
 h1 { font-size: 3rem; }
+
 h2 {
   font-size: 2rem;
   letter-spacing: 0.12em;
   text-align: center;
   margin-bottom: 20px;
 }
+
 h3 { font-size: 1.2rem; }
 
 p {
@@ -94,9 +100,9 @@ section {
 .nav a {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
-  height: 100%;
   display: flex;
   align-items: center;
+  height: 100%;
 }
 
 .nav a:hover,
@@ -162,20 +168,20 @@ section {
   transition: all 0.3s ease;
 }
 
-/* Filled (Primary CTA) */
+/* Filled primary CTA */
 .btn {
   background-color: #B08D57;
   color: #121212;
 }
 
-/* Outline (Secondary CTA) */
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* Outline secondary CTA */
 .btn-primary {
   border: 1px solid #B08D57;
   color: #B08D57;
-}
-
-.btn:hover {
-  opacity: 0.9;
 }
 
 .btn-primary:hover {
@@ -194,6 +200,7 @@ section {
 }
 
 .artist-card {
+  position: relative;
   width: 180px;
   height: 180px;
   border-radius: 12px;
@@ -254,7 +261,7 @@ section {
   margin-top: 20px;
   padding: 20px;
   border-left: 4px solid #B08D57;
-  background-color: rgba(176, 141, 87, 0.1);
+  background-color: rgba(176,141,87,0.1);
 }
 
 /* ===================== SERVICES ===================== */
@@ -262,8 +269,8 @@ section {
 .services {
   position: relative;
   background:
-    linear-gradient(rgba(15, 42, 31, 0.85), rgba(15, 42, 31, 0.85)),
-    url("/assets/grain.jpg");
+    linear-gradient(rgba(15,42,31,0.85), rgba(15,42,31,0.85)),
+    url('/assets/grain.jpg');
 }
 
 .services-intro {
