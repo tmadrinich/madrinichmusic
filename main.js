@@ -1,10 +1,10 @@
-// Load header & footer
+// =================== LOAD HEADER & FOOTER ===================
+
 fetch('/partials/header.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('header').innerHTML = html;
 
-    // Initialize features after header exists
     initNav();
     showSuccessMessage();
     initPageFade();
@@ -17,28 +17,26 @@ fetch('/partials/footer.html')
   });
 
 // =================== MOBILE MENU + ACTIVE LINK ===================
+
 function initNav() {
   const menuToggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.nav'); // unified nav
+  const nav = document.querySelector('.nav');
 
   if (!nav || !menuToggle) return;
 
   const links = Array.from(nav.querySelectorAll('a'));
 
-  // Mobile menu toggle
   menuToggle.addEventListener('click', () => {
     nav.classList.toggle('active');
   });
 
-  // Close menu when a link is clicked
   links.forEach(link => {
     link.addEventListener('click', () => {
       nav.classList.remove('active');
     });
   });
 
-  // Active page highlighting
-  const path = window.location.pathname.replace(/\/$/, ""); // remove trailing slash
+  const path = window.location.pathname.replace(/\/$/, "");
 
   links.forEach(link => {
     const page = link.dataset.page;
@@ -56,8 +54,10 @@ function initNav() {
 }
 
 // =================== CONTACT SUCCESS MESSAGE ===================
+
 function showSuccessMessage() {
   const params = new URLSearchParams(window.location.search);
+
   if (params.get('success') === 'true') {
     const form = document.getElementById('contact-form');
     const intro = document.getElementById('contact-intro');
@@ -70,15 +70,17 @@ function showSuccessMessage() {
 }
 
 // =================== PAGE FADE TRANSITIONS ===================
+
 function initPageFade() {
-  // Fade-in on load
   document.body.classList.add('fade-in');
+
   setTimeout(() => {
     document.body.classList.add('visible');
   }, 10);
 
-  // Fade-out on internal link click (internal links only)
-  const links = Array.from(document.querySelectorAll('a[href^="/"]:not([target="_blank"])'));
+  const links = Array.from(
+    document.querySelectorAll('a[href^="/"]:not([target="_blank"]):not([href*="#"])')
+  );
 
   links.forEach(link => {
     link.addEventListener('click', e => {
@@ -90,7 +92,7 @@ function initPageFade() {
 
       setTimeout(() => {
         window.location.href = href;
-      }, 500); // match your CSS transition duration
+      }, 500);
     });
   });
 }
