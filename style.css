@@ -351,6 +351,7 @@ footer {
   display: flex;
   gap: 24px;
   justify-content: center;
+   padding-top: 30px; /* Add extra space above icons */
 }
 
 .social-links a {
