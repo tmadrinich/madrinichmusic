@@ -152,20 +152,20 @@ section {
   z-index: 10000;
 }
 
-/* ===================== HERO ===================== */
+/* ===================== HERO SECTION ===================== */
 
 .hero {
-  min-height: calc(100vh - 100px);
-  position: relative; /* Needed for overlay */
+  min-height: calc(100vh - 100px); /* full viewport minus header */
+  position: relative;
   background-image: url('/assets/mmhero.jpg'); 
   background-size: cover;
-  background-position: center 20%; /* Shift image slightly down */
+  background-position: center 20%; /* shift image slightly down */
   display: flex;
-  flex-direction: column; /* stack text vertically */
-  justify-content: flex-start; /* align to top */
+  flex-direction: column;
+  justify-content: flex-start; /* align content near top */
   align-items: center;
   text-align: center;
-  padding-top: 80px; /* space from top after fixed header */
+  padding-top: 80px; /* space from header */
   overflow: hidden;
 }
 
@@ -177,19 +177,19 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.35); /* adjust opacity */
+  background-color: rgba(0, 0, 0, 0.35); /* adjust opacity */
   z-index: 1;
 }
 
-/* Ensure hero text/buttons appear above overlay */
+/* Ensure text and buttons appear above overlay */
 .hero h1,
 .hero p,
-.hero .btn,
 .hero .btn-primary {
   position: relative;
   z-index: 2;
 }
 
+/* Hero text */
 .hero h1 {
   font-size: 4rem;
   margin-bottom: 20px;
@@ -197,12 +197,12 @@ section {
 
 .hero p {
   font-size: 1.5rem;
+  margin-bottom: 20px; /* spacing before button */
 }
 
-/* Hero button styling */
+/* Hero button – matches contact page style */
 .hero .btn-primary {
-  margin-top: 20px;          /* spacing below paragraph */
-  padding: 12px 30px;        /* same as other buttons */
+  padding: 12px 30px;          /* same as contact button */
   font-weight: bold;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -212,6 +212,8 @@ section {
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
+  display: inline-block;
+  margin-top: 20px;            /* spacing below paragraph */
 }
 
 .hero .btn-primary:hover {
@@ -219,7 +221,22 @@ section {
   color: #121212;
 }
 
+/* ===================== RESPONSIVE HERO ===================== */
+@media (max-width: 768px) {
 
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  .hero .btn-primary {
+    width: 100%;       /* full-width button on mobile */
+    padding: 12px 0;   /* reduce horizontal padding */
+  }
+}
 
 
 /* ===================== GLOBAL BUTTONS / CTA ===================== */
