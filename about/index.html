@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-a7xTtQk0R5P0fGHJrPoDRG1tkc+0p4z+dy3sZ4T68IRZV8tm/1X7Q4w5aDrYjsI9kFxTv+o1rq2I5VY+FlY6Kg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <meta charset="UTF-8">
     <title>About | Madrinich Music</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fonts -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
+    <!-- Font Awesome (Icons) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-a7xTtQk0R5P0fGHJrPoDRG1tkc+0p4z+dy3sZ4T68IRZV8tm/1X7Q4w5aDrYjsI9kFxTv+o1rq2I5VY+FlY6Kg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Global CSS -->
     <link rel="stylesheet" href="/style.css">
+
     <style>
         /* ===================== ARTIST CARDS ===================== */
         .artist-cards {
@@ -50,7 +58,7 @@
             bottom: 0;
             width: 100%;
             background: rgba(0,0,0,0.6);
-            color: #F2EFEA; /* brand white */
+            color: #F2EFEA;
             font-weight: 700;
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
@@ -64,6 +72,28 @@
             color: inherit;
             text-decoration: none;
             font-weight: 700;
+        }
+
+        /* CTA Button below About content */
+        .about-cta {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .about-cta a {
+            display: inline-block;
+            padding: 12px 30px;
+            font-weight: bold;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            border: 1px solid #B08D57;
+            color: #B08D57;
+            transition: all 0.3s ease;
+        }
+
+        .about-cta a:hover {
+            background-color: #B08D57;
+            color: #121212;
         }
     </style>
 </head>
@@ -114,11 +144,32 @@
         <p style="margin-top:30px;">
             Whether it’s managing projects, producing tracks, or performing live, my goal is always to help artists shine and connect with their audience in meaningful ways.
         </p>
+
+        <!-- CTA Button to Services -->
+        <div class="about-cta">
+            <a href="/services">View Services</a>
+        </div>
     </div>
 </section>
 
 <!-- Footer -->
-<div id="footer"></div>
+<footer>
+  <div class="footer-container">
+    <div class="social-links">
+      <a href="https://www.facebook.com/madrinichmusic" target="_blank" aria-label="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.instagram.com/madrinichmusic" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.youtube.com/@madrinichmusic" target="_blank" aria-label="YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+    </div>
+    <hr class="footer-divider">
+    <p>&copy; 2026 Madrinich Music. All rights reserved.</p>
+  </div>
+</footer>
 
 <!-- Main JS -->
 <script src="/main.js"></script>
