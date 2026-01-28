@@ -441,3 +441,34 @@ footer {
 
   .services-cta { margin-top: 30px; }
 }
+/* ===================== CONTACT FORM ===================== */
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-form label {
+  display: block; /* Ensure each label is a block */
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.contact-form input,
+.contact-form textarea {
+  display: block;       /* Stack vertically */
+  width: 100%;          /* Full width */
+  padding: 12px;
+  margin-top: 5px;      /* Space between label and input */
+  border: none;
+  border-radius: 4px;
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.contact-form button.btn-primary {
+  margin-top: 20px;
+  display: inline-block;
+  width: auto;          /* adjust if you want full width: width: 100%; */
+  padding: 12px 30px;
+}
