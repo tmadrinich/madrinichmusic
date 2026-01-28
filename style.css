@@ -283,20 +283,24 @@ footer {
 .section-dark .container { padding-top: 40px; }
 
 /* =====================
-   SERVICES
+   SERVICES – ENHANCED
 ===================== */
 
-.services h2 {
-  text-align: center;
-  margin-bottom: 10px;
+.services {
+  position: relative;
+  background:
+    linear-gradient(rgba(15, 42, 31, 0.85), rgba(15, 42, 31, 0.85)),
+    url("/assets/grain.png"); /* optional subtle texture */
 }
 
 .services-intro {
   text-align: center;
-  max-width: 700px;
-  margin: 0 auto 50px;
+  max-width: 720px;
+  margin: 0 auto 60px;
   color: #F2EFEA;
 }
+
+/* Service cards */
 
 .service-grid {
   display: grid;
@@ -306,19 +310,19 @@ footer {
 
 .service-card {
   background: #121212;
-  padding: 40px 30px;
-  border: 1px solid rgba(176, 141, 87, 0.25);
+  padding: 45px 35px;
+  border: 1px solid rgba(176, 141, 87, 0.2);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
 }
 
 .service-card i {
-  font-size: 2.2rem;
+  font-size: 2.3rem;
   color: #B08D57;
   margin-bottom: 20px;
 }
@@ -326,13 +330,53 @@ footer {
 .service-card h3 {
   font-family: 'Oswald', sans-serif;
   color: #F2EFEA;
-  margin-bottom: 15px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
 }
+
+/* Brass divider */
+
+.service-divider {
+  width: 40px;
+  height: 2px;
+  background: #B08D57;
+  margin: 15px auto 20px;
+}
+
+/* Copy */
 
 .service-card p {
   color: #6B6F73;
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.65;
+}
+
+/* CTA */
+
+.services-cta {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.services-cta p {
+  color: #F2EFEA;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 12px 28px;
+  border: 1px solid #B08D57;
+  color: #B08D57;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #B08D57;
+  color: #121212;
 }
 
