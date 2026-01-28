@@ -1,40 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-/>
+  <meta charset="UTF-8">
+  <title>Madrinich Music</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
-    <title>Madrinich Music</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/style.css">
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-<!-- Shared Header -->
-<div id="header"></div>
+  <!-- Shared Header -->
+  <div id="header"></div>
 
-<!-- Hero Section -->
-<section class="hero">
+  <!-- Hero Section -->
+  <section class="hero">
     <div class="container">
-        <h1>Driven By Sound</h1>
-        <p class="accent">Crafting timeless musical experiences</p>
-        <a href="/contact/" class="btn">Get in Touch</a>
+      <h1>Driven By Sound</h1>
+      <p class="accent">Crafting timeless musical experiences</p>
+
+      <!-- Hero Buttons -->
+      <div class="hero-buttons">
+        <a href="/about/" class="btn">Learn More</a>
+        <a href="/contact/" class="btn-primary">Contact</a>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- Footer -->
-<div id="footer"></div>
+  <!-- Footer -->
+  <div id="footer"></div>
 
-<!-- Main JS -->
-<script src="/main.js"></script>
+  <!-- Main JS -->
+  <script src="/main.js"></script>
+
+  <style>
+    /* Hero buttons layout */
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    /* Optional: make buttons slightly bigger in hero */
+    .hero-buttons .btn,
+    .hero-buttons .btn-primary {
+      padding: 14px 36px;
+      font-size: 1.05rem;
+      letter-spacing: 0.12em;
+    }
+  </style>
 
 </body>
 </html>
