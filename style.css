@@ -199,10 +199,26 @@ section {
   font-size: 1.5rem;
 }
 
-/* Hero button spacing */
+/* Hero button styling */
 .hero .btn-primary {
-  margin-top: 20px;
+  margin-top: 20px;          /* spacing below paragraph */
+  padding: 12px 30px;        /* same as other buttons */
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid #B08D57;
+  background: transparent;
+  color: #B08D57;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
 }
+
+.hero .btn-primary:hover {
+  background-color: #B08D57;
+  color: #121212;
+}
+
 
 
 
