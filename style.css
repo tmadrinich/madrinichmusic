@@ -136,7 +136,7 @@ section { padding: 80px 20px; }
 
 /* ===================== HERO ===================== */
 .hero {
-    background-image: url('assets/hero.jpg');
+    background-image: url('assets/mmhero.jpg');
     background-size: cover;
     background-position: center;
     color: #F2EFEA;
