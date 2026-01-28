@@ -4,7 +4,6 @@ fetch('/partials/header.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('header').innerHTML = html;
-
     initNav();
     showSuccessMessage();
     initPageFade();
@@ -26,25 +25,27 @@ function initNav() {
 
   const links = Array.from(nav.querySelectorAll('a'));
 
+  // Mobile toggle
   menuToggle.addEventListener('click', () => {
     nav.classList.toggle('active');
   });
 
+  // Close mobile menu on link click
   links.forEach(link => {
     link.addEventListener('click', () => {
       nav.classList.remove('active');
     });
   });
 
-  const path = window.location.pathname.replace(/\/$/, "");
+  // Active link highlighting
+  const path = window.location.pathname.replace(/\/$/, ""); // remove trailing slash
 
   links.forEach(link => {
-    const page = link.dataset.page;
+    const href = link.getAttribute('href').replace(/\/$/, ""); // remove trailing slash
 
     if (
-      (page === "home" && (path === "" || path === "/" || path.endsWith("index.html"))) ||
-      path.endsWith(page) ||
-      path.endsWith(page + "/index.html")
+      (href === "/" && (path === "" || path === "/")) || // home page
+      path.endsWith(href) // matches folder or page
     ) {
       link.classList.add("active");
     } else {
