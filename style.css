@@ -41,7 +41,7 @@ body::before {
   z-index: 999;         /* behind content but above background color */
 }
 
-/* Typography */
+/* ===================== TYPOGRAPHY ===================== */
 
 h1, h2, h3 {
   font-family: 'Oswald', sans-serif;
@@ -174,19 +174,20 @@ section {
   font-size: 1.5rem;
 }
 
-/* ===================== BUTTONS ===================== */
+/* ===================== GLOBAL BUTTONS / CTA ===================== */
 
 .btn,
-.btn-primary {
+.btn-primary,
+.services-cta a {
   display: inline-block;
   padding: 12px 30px;
   font-weight: bold;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-/* Filled primary CTA */
 .btn {
   background-color: #B08D57;
   color: #121212;
@@ -196,15 +197,21 @@ section {
   opacity: 0.9;
 }
 
-/* Outline secondary CTA */
-.btn-primary {
+.btn-primary,
+.services-cta a {
   border: 1px solid #B08D57;
   color: #B08D57;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.services-cta a:hover {
   background: #B08D57;
   color: #121212;
+}
+
+.services-cta {
+  text-align: center;
+  margin-top: 40px; /* default spacing above any CTA section */
 }
 
 /* ===================== ARTIST CARDS ===================== */
@@ -280,6 +287,9 @@ section {
   padding: 20px;
   border-left: 4px solid #B08D57;
   background-color: rgba(176,141,87,0.1);
+  font-weight: 700;
+  text-align: center;
+  color: #F2EFEA;
 }
 
 /* ===================== SERVICES ===================== */
@@ -338,16 +348,6 @@ section {
   color: #6B6F73;
   font-size: 0.95rem;
   line-height: 1.65;
-}
-
-.services-cta {
-  text-align: center;
-  margin-top: 80px;
-}
-
-.services-cta p {
-  font-size: 1.1rem;
-  margin-bottom: 20px;
 }
 
 /* ===================== FOOTER ===================== */
@@ -435,4 +435,6 @@ footer {
 
   .hero h1 { font-size: 2.5rem; }
   .hero p  { font-size: 1.2rem; }
+
+  .services-cta { margin-top: 30px; }
 }
