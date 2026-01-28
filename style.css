@@ -17,7 +17,7 @@ body {
   color: #F2EFEA;
   line-height: 1.6;
   transition: opacity 0.5s ease;
-  position: relative; /* Needed for section overlays if any */
+  position: relative;
 }
 
 /* Page transitions */
@@ -36,9 +36,9 @@ body::before {
   background: url('/assets/grain.jpg');
   background-size: cover;
   background-repeat: repeat;
-  opacity: 0.05;       /* subtle grain */
-  pointer-events: none; /* clicks go through */
-  z-index: 999;         /* behind content but above background color */
+  opacity: 0.05;       
+  pointer-events: none; 
+  z-index: 999;         
 }
 
 /* ===================== TYPOGRAPHY ===================== */
@@ -156,7 +156,7 @@ section {
 
 .hero {
   min-height: calc(100vh - 100px);
-  background-image: url('/assets/mmhero.jpg'); /* Home hero image intact */
+  background-image: url('/assets/mmhero.jpg'); 
   background-size: cover;
   background-position: center;
   display: flex;
@@ -174,6 +174,11 @@ section {
   font-size: 1.5rem;
 }
 
+/* Hero button spacing */
+.hero .btn-primary {
+  margin-top: 20px;
+}
+
 /* ===================== GLOBAL BUTTONS / CTA ===================== */
 
 .btn,
@@ -186,8 +191,10 @@ section {
   text-transform: uppercase;
   transition: all 0.3s ease;
   cursor: pointer;
+  text-align: center;
 }
 
+/* Filled primary CTA */
 .btn {
   background-color: #B08D57;
   color: #121212;
@@ -197,21 +204,23 @@ section {
   opacity: 0.9;
 }
 
+/* Outline / secondary CTA */
 .btn-primary,
 .services-cta a {
   border: 1px solid #B08D57;
   color: #B08D57;
+  background: transparent;
 }
 
 .btn-primary:hover,
 .services-cta a:hover {
-  background: #B08D57;
+  background-color: #B08D57;
   color: #121212;
 }
 
 .services-cta {
   text-align: center;
-  margin-top: 40px; /* default spacing above any CTA section */
+  margin-top: 40px; 
 }
 
 /* ===================== ARTIST CARDS ===================== */
@@ -282,6 +291,10 @@ section {
   font-family: 'Lato', sans-serif;
 }
 
+.contact-form button.btn-primary {
+  margin-top: 20px;
+}
+
 #success-message {
   margin-top: 20px;
   padding: 20px;
@@ -298,7 +311,7 @@ section {
   position: relative;
   background:
     linear-gradient(rgba(15,42,31,0.85), rgba(15,42,31,0.85)),
-    url('/assets/grain.jpg'); /* Grain background */
+    url('/assets/grain.jpg');
 }
 
 .services-intro {
@@ -369,7 +382,7 @@ footer {
   display: flex;
   gap: 24px;
   justify-content: center;
-  padding-top: 30px; /* extra padding above icons */
+  padding-top: 30px;
 }
 
 .social-links a {
@@ -437,4 +450,8 @@ footer {
   .hero p  { font-size: 1.2rem; }
 
   .services-cta { margin-top: 30px; }
+
+  .contact-form button.btn-primary {
+    width: 100%;
+  }
 }
