@@ -363,6 +363,17 @@ footer {
   opacity: 0.8;
 }
 
+.footer-divider {
+  border: none;          /* Remove default border */
+  height: 1px;           /* Thickness of the line */
+  background-color: #ccc; /* Line color */
+  margin: 15px 0;        /* Space above and below */
+  width: 50%;            /* Optional: shorter line than full width */
+  margin-left: auto;      /* Center it */
+  margin-right: auto;
+}
+
+
 /* ===================== RESPONSIVE ===================== */
 
 @media (max-width: 768px) {
