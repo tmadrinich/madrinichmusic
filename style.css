@@ -290,7 +290,7 @@ footer {
   position: relative;
   background:
     linear-gradient(rgba(15, 42, 31, 0.85), rgba(15, 42, 31, 0.85)),
-    url("/assets/grain.png"); /* optional subtle texture */
+    url("/assets/grain.jpg"); /* optional subtle texture */
 }
 
 .services-intro {
