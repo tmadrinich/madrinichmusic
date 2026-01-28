@@ -10,8 +10,8 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
-<link rel="stylesheet" href="/style.css">
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
@@ -70,8 +70,24 @@
     </div>
 </section>
 
-<!-- Footer -->
-<div id="footer"></div>
+<!-- ===================== FOOTER ===================== -->
+<footer>
+    <div class="footer-container">
+        <div class="social-links">
+            <a href="https://www.facebook.com/madrinichmusic" target="_blank" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/madrinichmusic" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/@madrinichmusic" target="_blank" aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+        <hr class="footer-divider">
+        <p>&copy; 2026 Madrinich Music. All rights reserved.</p>
+    </div>
+</footer>
 
 <!-- Main JS -->
 <script src="/main.js"></script>
@@ -91,7 +107,6 @@
         }
     }
 
-    // Run after header/footer loads
     document.addEventListener('DOMContentLoaded', showSuccessMessage);
 </script>
 
