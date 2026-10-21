@@ -12,7 +12,7 @@ body {
   margin: 0;
   padding-top: 100px; /* offset for fixed header */
   font-family: 'Lato', sans-serif;
-  background-color: #0F2A1F;
+  background-color: #121212;
   color: #F2EFEA;
   line-height: 1.6;
   transition: opacity 0.5s ease;
@@ -41,9 +41,26 @@ body::before {
 }
 
 /* ===================== TYPOGRAPHY ===================== */
-h1, h2, h3 {
+h1, h2 {
   font-family: 'Oswald', sans-serif;
+  font-weight: 700;
   color: #F2EFEA;
+}
+
+h3 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  color: #F2EFEA;
+}
+
+/* Brass divider under section headers */
+h2::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: #B08D57;
+  margin: 16px auto 0;
 }
 
 h1 { font-size: 3rem; }
@@ -79,7 +96,7 @@ section {
 
 /* Section background utilities */
 .section-light { background-color: #1F3D2B; }
-.section-dark  { background-color: #0F2A1F; }
+.section-dark  { background-color: #121212; }
 
 /* ===================== HEADER ===================== */
 .site-header {
@@ -88,8 +105,8 @@ section {
   left: 0;
   width: 100%;
   height: 100px;
-  background: #0F2A1F;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  background: #121212;
+  border-bottom: 2px solid #1F3D2B;
   z-index: 9999;
 }
 
@@ -145,12 +162,12 @@ section {
 .hero {
   min-height: calc(100vh - 100px);
   position: relative;
-  background-image: url('/assets/mmhero.jpg'); 
+  background-image: url('/assets/hero-live.jpg');
   background-size: cover;
-  background-position: center 20%;
+  background-position: 60% 30%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
   text-align: center;
   overflow: hidden;
@@ -164,7 +181,7 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.35);
+  background: linear-gradient(to top, rgba(15,42,31,0.95) 0%, rgba(15,42,31,0.65) 45%, rgba(18,18,18,0.2) 100%);
   z-index: 1;
 }
 
@@ -172,7 +189,7 @@ section {
 .hero .container {
   position: relative;
   z-index: 2;
-  margin-top: 140px; /* move content down */
+  padding-bottom: 80px;
 }
 
 /* Hero text */
@@ -194,8 +211,8 @@ section {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   border: 1px solid #B08D57;
-  background: transparent;
-  color: #B08D57;
+  background: #1F3D2B;
+  color: #F2EFEA;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
@@ -205,8 +222,8 @@ section {
 }
 
 .hero .btn-primary:hover {
-  background-color: #B08D57;
-  color: #121212;
+  background-color: #0F2A1F;
+  color: #B08D57;
 }
 
 /* ===================== GLOBAL BUTTONS ===================== */
@@ -234,14 +251,16 @@ section {
 .btn-primary,
 .services-cta a {
   border: 1px solid #B08D57;
-  color: #B08D57;
-  background: transparent;
+  color: #F2EFEA;
+  background: #1F3D2B;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
 }
 
 .btn-primary:hover,
 .services-cta a:hover {
-  background-color: #B08D57;
-  color: #121212;
+  background-color: #0F2A1F;
+  color: #B08D57;
 }
 
 .services-cta {
@@ -297,9 +316,7 @@ section {
 
 .services {
   position: relative;
-  background:
-    linear-gradient(rgba(15,42,31,0.94), rgba(15,42,31,0.94)),
-    url('/assets/grain.jpg');
+  background: #121212;
   padding: 80px 20px;
 }
 
@@ -319,10 +336,11 @@ section {
 }
 
 .service-card {
-  background: #121212;
-  padding: 45px 35px;
-  border: 1px solid rgba(176,141,87,0.2);
+  background: #1F3D2B;
+  padding: 0 0 35px;
+  border: 1px solid rgba(176,141,87,0.25);
   text-align: center;
+  overflow: hidden;
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   border-radius: 12px;
 }
@@ -333,10 +351,21 @@ section {
 }
 
 .service-card i {
-  font-size: 2.3rem;
+  font-size: 1.6rem;
   color: #B08D57;
-  margin-bottom: 20px;
+  margin: 24px 0 8px;
 }
+
+.service-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.service-card h3,
+.service-card p { padding: 0 30px; }
 
 .service-card h3 {
   letter-spacing: 0.08em;
@@ -352,7 +381,7 @@ section {
 }
 
 .service-card p {
-  color: #6B6F73;
+  color: rgba(242,239,234,0.85);
   font-size: 0.95rem;
   line-height: 1.65;
 }
@@ -375,16 +404,16 @@ section {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   border: 1px solid #B08D57;
-  background: transparent;
-  color: #B08D57;
+  background: #1F3D2B;
+  color: #F2EFEA;
   cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 4px;
 }
 
 .services-cta a.btn-primary:hover {
-  background-color: #B08D57;
-  color: #121212;
+  background-color: #0F2A1F;
+  color: #B08D57;
 }
 
 /* ===================== RESPONSIVE ===================== */
@@ -407,7 +436,8 @@ section {
 
 /* ===================== FOOTER ===================== */
 footer {
-  background-color: #0F2A1F;
+  background-color: #121212;
+  border-top: 2px solid #1F3D2B;
   text-align: center;
   padding: 40px 20px;
 }
@@ -439,8 +469,8 @@ footer {
 .footer-divider {
   border: none;          
   height: 1px;           
-  background-color: #ccc; 
-  margin: 15px 0;        
+  background-color: rgba(176,141,87,0.4);
+  margin: 15px 0;
   width: 50%;            
   margin-left: auto;      
   margin-right: auto;
@@ -457,6 +487,7 @@ footer {
     left: 0;
     width: 100%;
     background-color: #121212;
+    border-bottom: 2px solid #1F3D2B;
     flex-direction: column;
     gap: 15px;
     max-height: 0;
@@ -492,7 +523,7 @@ footer {
     padding: 12px 0;
   }
 
-  .hero .container { margin-top: 100px; }
+  .hero .container { padding-bottom: 50px; }
 
   .services-cta { margin-top: 30px; }
 }
@@ -515,8 +546,10 @@ footer {
   width: 100%;          /* Full width */
   padding: 12px;
   margin-top: 5px;      /* Space between label and input */
-  border: none;
+  border: 1px solid #6B6F73;
   border-radius: 4px;
+  background: #F2EFEA;
+  color: #121212;
   font-family: 'Lato', sans-serif;
   box-sizing: border-box;
 }
@@ -531,7 +564,7 @@ footer {
 /* ===================== PLAYER BRAND (2026-10) ===================== */
 .footer-tcsc { color: #6B6F73; font-size: 0.95rem; margin: 0; }
 .footer-tcsc a { text-decoration: underline; text-underline-offset: 3px; }
-.hero .tagline { letter-spacing: 0.08em; }
+.hero .tagline { letter-spacing: 0.08em; text-shadow: 0 2px 12px rgba(0,0,0,0.6); }
 .hero-buttons { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 30px; }
 .credits-label {
   font-family: 'Lato', sans-serif; font-weight: 700; text-transform: uppercase;
@@ -539,3 +572,26 @@ footer {
 }
 .playlist-embed { max-width: 720px; margin: 16px auto 0; }
 .playlist-embed iframe { display: block; border: 0; border-radius: 12px; }
+
+/* ===================== PHOTO REFRESH (2026-10-21) ===================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 48px;
+  align-items: center;
+}
+.about-portrait {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 12px;
+  border: 1px solid rgba(176,141,87,0.35);
+  display: block;
+}
+.about-grid p:first-child { margin-top: 0; }
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; gap: 28px; }
+  .about-portrait { max-width: 420px; margin: 0 auto; }
+}
