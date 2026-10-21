@@ -147,7 +147,7 @@ section {
   align-items: center;
 }
 
-.header-logo { height: 80px; }
+.header-logo { height: 64px; width: auto; display: block; }
 
 /* Mobile Menu */
 .menu-toggle {
@@ -164,7 +164,7 @@ section {
   position: relative;
   background-image: url('/assets/hero-live.jpg');
   background-size: cover;
-  background-position: 60% 30%;
+  background-position: 45% 25%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -181,7 +181,7 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(15,42,31,0.95) 0%, rgba(15,42,31,0.65) 45%, rgba(18,18,18,0.2) 100%);
+  background: linear-gradient(to top, rgba(18,18,18,0.92) 0%, rgba(15,42,31,0.6) 40%, rgba(18,18,18,0.1) 80%);
   z-index: 1;
 }
 
