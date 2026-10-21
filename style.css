@@ -527,3 +527,13 @@ footer {
   width: auto;          /* adjust if you want full width: width: 100%; */
   padding: 12px 30px;
 }
+
+/* ===================== PLAYER BRAND (2026-10) ===================== */
+.footer-tcsc { color: #6B6F73; font-size: 0.95rem; margin: 0; }
+.footer-tcsc a { text-decoration: underline; text-underline-offset: 3px; }
+.hero .tagline { letter-spacing: 0.08em; }
+.hero-buttons { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 30px; }
+.credits-label {
+  font-family: 'Lato', sans-serif; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: #B08D57; text-align: center; margin-top: 40px;
+}
