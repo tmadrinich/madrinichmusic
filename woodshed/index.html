@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Woodshed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#121212">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Woodshed">
+  <link rel="manifest" href="/woodshed/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/woodshed/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <style>
+    /* Madrinich Music brand: charcoal ground, forest green, brass accents, Oswald + Lato */
+    :root{
+      --bg:#121212; --surface:#1A1C1B; --pine:#0F2A1F; --green:#1F3D2B;
+      --ink:#F2EFEA; --muted:#A4A7AA; --slate:#6B6F73; --line:#2B2E2D;
+      --brass:#B08D57; --brass-ink:#121212; --warn:#D98B5F;
+      --f-display:'Oswald','Arial Narrow',Impact,sans-serif;
+      --f-body:'Lato',system-ui,-apple-system,'Segoe UI',sans-serif;
+      --f-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      color-scheme:dark;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--ink)}
+    body{font-family:var(--f-body);font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+    [hidden]{display:none!important}
+    .wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+    header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+    .hrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px 2px}
+    .brand{font-family:var(--f-display);font-weight:700;font-size:24px;letter-spacing:.12em;text-transform:uppercase;line-height:1}
+    .brand span{color:var(--brass)}
+    .status{font-size:12px;color:var(--muted)}
+    .status.bad{color:var(--warn)}
+    nav{display:flex;gap:2px;overflow-x:auto}
+    nav button{font:700 15px var(--f-body);background:none;border:0;color:var(--muted);padding:10px 12px 12px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+    nav button[aria-current="page"]{color:var(--ink);border-bottom-color:var(--brass)}
+    nav .out{margin-left:auto;font-weight:400;font-size:14px}
+    button,input,select{font:inherit;color:inherit}
+    :focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+    main{padding-block:20px calc(48px + env(safe-area-inset-bottom,0px))}
+    section{display:flex;flex-direction:column;gap:18px}
+    h1,h2{font-family:var(--f-display);font-weight:700;text-transform:uppercase;letter-spacing:.06em;line-height:1.1;margin:0;text-wrap:balance}
+    h1{font-size:32px}
+    h2{font-size:22px}
+    h3{font-family:var(--f-body);font-weight:700;font-size:18px;line-height:1.25;margin:0}
+    p{margin:0}
+    .eyebrow{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brass)}
+    .muted{color:var(--muted)}
+    .small{font-size:14px}
+    .rule{width:48px;height:2px;background:var(--brass)}
+    .panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+    .btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer}
+    .btn.primary{background:var(--brass);border-color:var(--brass);color:var(--brass-ink)}
+    .btn.small{padding:5px 11px;font-size:14px}
+    .btn:disabled{opacity:.5;cursor:default}
+    input,select{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:16px;min-width:0;width:100%}
+    label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:700;color:var(--muted);min-width:0}
+    .num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+    /* Login */
+    .login{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding-block:calc(24px + env(safe-area-inset-top,0px)) 24px}
+    .login form{width:100%;max-width:360px;display:flex;flex-direction:column;gap:14px}
+    .login img{width:96px;height:96px;border-radius:20px;align-self:center}
+    .login h1{text-align:center}
+    .msg{font-size:14px;color:var(--warn);min-height:1.4em}
+
+    /* Today */
+    .week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+    .wd{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;color:var(--muted)}
+    .wd i{display:block;width:100%;height:8px;border-radius:4px;background:var(--line);position:relative;overflow:hidden}
+    .wd i b{position:absolute;inset:0 auto 0 0;background:var(--brass)}
+    .wd.now{color:var(--ink);font-weight:700}
+    .blocks{display:flex;flex-direction:column;gap:12px;list-style:none;margin:0;padding:0}
+    .block{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+    .check{width:28px;height:28px;border-radius:6px;border:2px solid var(--slate);background:none;cursor:pointer;display:grid;place-items:center;padding:0;margin-top:2px}
+    .check[aria-checked="true"]{background:var(--brass);border-color:var(--brass)}
+    .check svg{width:16px;height:16px;stroke:var(--brass-ink);stroke-width:3;fill:none;opacity:0}
+    .check[aria-checked="true"] svg{opacity:1}
+    .bmeta{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
+    .time{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+    .block.done h3{color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px}
+    .bbody{display:flex;flex-direction:column;gap:10px;min-width:0}
+    .bbody p{font-size:15px}
+    .qrow{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding-top:8px;border-top:1px dashed var(--line)}
+    .ql{display:flex;gap:6px;align-items:center}
+    .ql input{width:90px;padding:6px 8px}
+    .timerbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px);z-index:4;display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--pine);border:1px solid var(--brass);border-radius:10px;padding:12px 16px}
+    .timerbar .clock{font-family:var(--f-mono);font-size:30px;font-weight:700;line-height:1}
+    .timerbar .tname{flex:1;min-width:120px;font-weight:700}
+    ol.steps,ul.rules{margin:0;padding-left:20px;font-size:15px;display:flex;flex-direction:column;gap:4px}
+
+    /* Fretboard + tabs */
+    .fret{width:100%;max-width:300px;height:auto;display:block}
+    .fret .str{stroke:var(--slate);stroke-width:1}
+    .fret .fl{stroke:var(--line);stroke-width:2}
+    .fret .dot{fill:var(--surface);stroke:var(--ink);stroke-width:1.5}
+    .fret .root{fill:var(--brass);stroke:var(--brass)}
+    .fret text{fill:var(--muted);font:600 9px var(--f-mono)}
+    .posgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .pos{display:flex;flex-direction:column;gap:6px}
+    .pos.today{border-color:var(--brass)}
+    .ex{display:flex;flex-direction:column;gap:10px}
+    .tabs-row{display:flex;flex-wrap:wrap;gap:10px}
+    .tb{display:flex;flex-direction:column;gap:2px;max-width:100%}
+    .tb .cap{font-size:13px;font-weight:700;color:var(--muted)}
+    pre.tab{margin:0;font-family:var(--f-mono);font-size:13px;line-height:1.35;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;overflow-x:auto;max-width:100%}
+    .ref{width:100%;border-collapse:collapse;font-size:15px}
+    .ref th,.ref td{text-align:left;padding:7px 8px;border-top:1px solid var(--line);vertical-align:top}
+    .ref th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:0}
+    .scroll{overflow-x:auto}
+    .toc{display:flex;flex-wrap:wrap;gap:6px}
+    .toc a{font-size:13px;font-weight:700;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:var(--surface)}
+
+    /* Tempo */
+    form.log{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    form.log .full{grid-column:1/-1}
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+    .tc{display:flex;flex-direction:column;gap:6px}
+    .tc .big{font-family:var(--f-display);font-size:34px;font-weight:700;line-height:1}
+    .tc .big small{font-family:var(--f-body);font-size:14px;font-weight:400;color:var(--muted)}
+    .delta{font-size:13px;font-weight:700}
+    .delta.up{color:var(--brass)} .delta.flat{color:var(--muted)} .delta.down{color:var(--warn)}
+    .spark{width:100%;height:36px;display:block}
+    .spark .ln{fill:none;stroke:var(--brass);stroke-width:2}
+    .spark .ar{fill:var(--green)}
+    .spark .pt{fill:var(--brass)}
+    .stale{color:var(--warn);font-size:13px;font-weight:700}
+    .rows{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+    .rows li{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:15px}
+    .rows li:first-child{border-top:0}
+    .rows .note{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    @media (max-width:420px){h1{font-size:28px}form.log{grid-template-columns:1fr}}
+    @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+
+<div class="login wrap" id="login" hidden>
+  <form id="loginform" novalidate>
+    <img src="/woodshed/apple-touch-icon.png" alt="">
+    <h1>Woodshed</h1>
+    <label for="lg-email">Email<input id="lg-email" type="email" autocomplete="username" required></label>
+    <label for="lg-pass">Password<input id="lg-pass" type="password" autocomplete="current-password" required></label>
+    <button class="btn primary" type="submit" id="lg-btn">Sign in</button>
+    <p class="msg" id="lg-msg" role="alert"></p>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <div class="wrap">
+      <div class="hrow"><div class="brand">Wood<span>shed</span></div><div class="status" id="status" role="status"></div></div>
+      <nav aria-label="Views">
+        <button data-v="today">Today</button>
+        <button data-v="tempo">Tempo log</button>
+        <button data-v="tabs">Tabs</button>
+        <button class="out" id="signout" type="button">Sign out</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="v-today">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div class="eyebrow" id="dayeyebrow"></div>
+        <h1 id="daytitle"></h1>
+        <div class="rule"></div>
+        <p class="muted" id="daysub"></p>
+      </div>
+      <div class="week" id="week" aria-label="Last 7 days"></div>
+      <div class="timerbar" id="timer" hidden>
+        <div class="clock" id="tclock">0:00</div>
+        <div class="tname" id="tname"></div>
+        <button class="btn small" id="tpause" type="button">Pause</button>
+        <button class="btn small" id="tstop" type="button">Stop</button>
+      </div>
+      <ol class="blocks" id="blocks"></ol>
+      <div class="panel">
+        <h3>Rules</h3>
+        <ul class="rules" style="margin-top:8px">
+          <li>Clean beats fast. Sloppy means drop 10 bpm.</li>
+          <li>When a drill's timer ends, move on, even mid-roll.</li>
+          <li>Practice dry. Re-check clean tempos every two weeks.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="v-tempo" hidden>
+      <div style="display:flex;flex-direction:column;gap:6px"><div class="eyebrow">Clean tempo, burst tempo</div><h1>Tempo log</h1><div class="rule"></div></div>
+      <form class="log panel" id="logform" novalidate>
+        <label class="full" for="tx-ex">Exercise<select id="tx-ex"></select></label>
+        <label for="tx-clean">Clean bpm<input id="tx-clean" type="number" inputmode="numeric" min="20" max="400" placeholder="e.g. 120"></label>
+        <label for="tx-burst">Burst bpm<input id="tx-burst" type="number" inputmode="numeric" min="20" max="400" placeholder="optional"></label>
+        <label for="tx-date">Date<input id="tx-date" type="date"></label>
+        <label for="tx-note">Note<input id="tx-note" type="text" maxlength="120" placeholder="16ths, economy picking"></label>
+        <div class="full" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button class="btn primary" type="submit">Log tempo</button>
+          <span class="small muted" id="tx-msg" role="status"></span>
+        </div>
+      </form>
+      <div class="cards" id="tcards"></div>
+      <div class="panel"><h3>Recent entries</h3><ul class="rows" id="trows" style="margin-top:8px"></ul></div>
+    </section>
+
+    <section id="v-tabs" hidden>
+      <div style="display:flex;flex-direction:column;gap:6px"><div class="eyebrow">Key of G major / E minor</div><h1>Tabs</h1><div class="rule"></div></div>
+      <div class="toc">
+        <a href="#t-warm">Warm-up</a><a href="#t-pos">7 positions</a><a href="#t-seq">Sequences</a><a href="#t-loop">6-note loop</a><a href="#t-skip">String skipping</a><a href="#t-hyb">Hybrid</a><a href="#t-sweep">Sweeps</a><a href="#t-caged">CAGED</a>
+      </div>
+      <div id="tabsbody" style="display:flex;flex-direction:column;gap:28px"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+"use strict";
+const SUPABASE_URL='https://xygortlgygtccszgxkla.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5Z29ydGxneWd0Y2Nzemd4a2xhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI5NzIwOTgsImV4cCI6MjEwODU0ODA5OH0.i5bvsIpxRVYKlGFewA93Kxu0ssRC1yWAjV0CIqLO0n4';
+
+const NAMES=['E','A','D','G','B','e'];
+const OPEN=[4,9,2,7,11,4];
+const POS=[
+ {n:1,start:'G',frets:[[3,5,7],[3,5,7],[4,5,7],[4,5,7],[5,7,8],[5,7,8]]},
+ {n:2,start:'A',frets:[[5,7,8],[5,7,9],[5,7,9],[5,7,9],[7,8,10],[7,8,10]]},
+ {n:3,start:'B',frets:[[7,8,10],[7,9,10],[7,9,10],[7,9,11],[8,10,12],[8,10,12]]},
+ {n:4,start:'C',frets:[[8,10,12],[9,10,12],[9,10,12],[9,11,12],[10,12,13],[10,12,14]]},
+ {n:5,start:'D',frets:[[10,12,14],[10,12,14],[10,12,14],[11,12,14],[12,13,15],[12,14,15]]},
+ {n:6,start:'E',frets:[[12,14,15],[12,14,15],[12,14,16],[12,14,16],[13,15,17],[14,15,17]]},
+ {n:7,start:'F#',frets:[[2,3,5],[2,3,5],[2,4,5],[2,4,5],[3,5,7],[3,5,7]]}
+];
+const EXS=['Chromatic sync','6-note loop','3nps groups of 6','3nps groups of 4','String skipping','Octave pairs','Hybrid rolls','Double stops','3-string sweeps','5-string sweeps'];
+const CAGED_ORDER=['E','D','C','A','G'];
+const CAGED_ROWS={E:'frets 3–5, root on low E fret 3',D:'frets 4–8, root on D string fret 5',C:'frets 7–10, root on A string fret 10',A:'frets 10–12, root on A string fret 10',G:'frets 12–15, root on low E fret 15'};
+
+let S={days:{},tempos:[]};
+let uid=null;
+const sb=window.supabase?window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true}}):null;
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const dayNum=d=>Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000);
+const parseYmd=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const fmtShort=s=>parseYmd(s).toLocaleDateString(undefined,{month:'short',day:'numeric'});
+
+/* ---------- auth + storage ---------- */
+function setStatus(t,bad){const el=$('status');el.textContent=t;el.classList.toggle('bad',!!bad)}
+const cacheKey=()=>'woodshed.'+uid;
+function cacheWrite(){try{localStorage.setItem(cacheKey(),JSON.stringify(S))}catch(e){}}
+function cacheRead(){try{const v=localStorage.getItem(cacheKey());if(v){const o=JSON.parse(v);S={days:o.days||{},tempos:o.tempos||[]}}}catch(e){}}
+
+let saveTimer=null,dirty=false,saving=false;
+function save(){dirty=true;cacheWrite();clearTimeout(saveTimer);saveTimer=setTimeout(flush,600)}
+async function flush(){
+  if(!dirty||saving||!uid)return;
+  saving=true;dirty=false;setStatus('Saving…');
+  const {error}=await sb.from('woodshed_state').upsert({user_id:uid,days:S.days,tempos:S.tempos,updated_at:new Date().toISOString()});
+  saving=false;
+  if(error){dirty=true;setStatus('Not saved. Will retry.',true);setTimeout(flush,8000);return}
+  setStatus(dirty?'Saving…':'Saved');
+  if(dirty)flush();
+}
+async function load(){
+  cacheRead();render();
+  setStatus('Syncing…');
+  const {data,error}=await sb.from('woodshed_state').select('days,tempos').maybeSingle();
+  if(error){setStatus('Offline. Showing your last copy.',true);return}
+  if(data&&!dirty){S={days:data.days||{},tempos:data.tempos||[]};cacheWrite();render()}
+  setStatus('Synced');
+}
+function showApp(session){
+  uid=session.user.id;
+  $('login').hidden=true;$('app').hidden=false;
+  load();
+}
+function showLogin(){
+  uid=null;$('app').hidden=true;$('login').hidden=false;
+}
+async function boot(){
+  renderTabs();
+  show((location.hash||'').slice(1));
+  if(!sb){showLogin();$('lg-msg').textContent='Could not load the sign-in service. Check your connection and reload.';return}
+  const {data:{session}}=await sb.auth.getSession();
+  if(session)showApp(session);else showLogin();
+  sb.auth.onAuthStateChange((ev,s)=>{if(ev==='SIGNED_OUT')showLogin()});
+}
+$('loginform').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const email=$('lg-email').value.trim(),password=$('lg-pass').value;
+  if(!email||!password){$('lg-msg').textContent='Enter your email and password.';return}
+  $('lg-btn').disabled=true;$('lg-msg').textContent='';
+  const {data,error}=await sb.auth.signInWithPassword({email,password});
+  $('lg-btn').disabled=false;
+  if(error){$('lg-msg').textContent='That email and password didn\'t match. Try again.';return}
+  $('lg-pass').value='';showApp(data.session);
+});
+$('signout').addEventListener('click',async()=>{await flush();await sb.auth.signOut();showLogin()});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&uid&&!dirty&&!saving)load();else if(document.visibilityState==='hidden')flush()});
+window.addEventListener('online',()=>{if(dirty)flush()});
+
+/* ---------- views ---------- */
+const VIEWS=['today','tempo','tabs'];
+function show(v){
+  if(!VIEWS.includes(v))v='today';
+  VIEWS.forEach(x=>{$('v-'+x).hidden=x!==v});
+  document.querySelectorAll('nav button[data-v]').forEach(b=>b.setAttribute('aria-current',b.dataset.v===v?'page':'false'));
+}
+document.querySelectorAll('nav button[data-v]').forEach(b=>b.addEventListener('click',()=>{show(b.dataset.v);try{history.replaceState(null,'','#'+b.dataset.v)}catch(e){};window.scrollTo(0,0)}));
+
+/* ---------- fretboard ---------- */
+function fretSVG(p){
+  const all=p.frets.flat(),lo=Math.min(...all),hi=Math.max(...all),n=hi-lo+1;
+  const W=200,L=14,R=4,T=8,sh=15,B=18,cw=(W-L-R)/n,H=T+5*sh+B;
+  const y=s=>T+(5-s)*sh;
+  let g='';
+  for(let i=0;i<=n;i++){const x=L+i*cw;g+=`<line class="fl" x1="${x}" y1="${T}" x2="${x}" y2="${T+5*sh}"/>`}
+  for(let s=0;s<6;s++){g+=`<line class="str" x1="${L}" y1="${y(s)}" x2="${W-R}" y2="${y(s)}"/><text x="2" y="${y(s)+3}">${NAMES[s]}</text>`}
+  for(let f=lo;f<=hi;f++){g+=`<text x="${L+(f-lo+0.5)*cw}" y="${H-4}" text-anchor="middle">${f}</text>`}
+  p.frets.forEach((fs,s)=>fs.forEach(f=>{const root=(OPEN[s]+f)%12===7;g+=`<circle class="dot${root?' root':''}" cx="${L+(f-lo+0.5)*cw}" cy="${y(s)}" r="5.5"/>`}));
+  return `<svg class="fret" viewBox="0 0 ${W} ${H}" role="img" aria-label="Position ${p.n}, starting on ${p.start} at fret ${p.frets[0][0]}">${g}</svg>`;
+}
+
+/* ---------- tabs ---------- */
+function tabText(cols){
+  cols=cols.map(c=>({...c,w:Math.max(...c.n.map(x=>String(x[1]).length),(c.l||'').length)}));
+  const lines=[];
+  for(let s=5;s>=0;s--)lines.push(NAMES[s]+'|'+cols.map(c=>{const h=c.n.find(x=>x[0]===s);return '-'+(h?String(h[1]):'').padEnd(c.w,'-')}).join('')+'-|');
+  if(cols.some(c=>c.l))lines.push('  '+cols.map(c=>' '+(c.l||'').padEnd(c.w,' ')).join(''));
+  return lines.join('\n');
+}
+const tb=(cols,cap)=>`<div class="tb">${cap?`<span class="cap">${esc(cap)}</span>`:''}<pre class="tab">${esc(tabText(cols))}</pre></div>`;
+const row=items=>`<div class="tabs-row">${items.join('')}</div>`;
+const N=(s,f,l)=>({n:[[s,f]],l});
+function seq(p){const out=[];p.frets.forEach((fs,s)=>fs.forEach(f=>out.push([s,f])));return out}
+
+function parts(P){
+  const p1=seq(P),alt=i=>i%2?'U':'D';
+  const chrom=[[0,1],[2,3],[4,5]].map(pair=>{const c=[];let i=0;pair.forEach(s=>[5,6,7,8].forEach(f=>c.push(N(s,f,alt(i++)))));return tb(c,`${NAMES[pair[0]]} + ${NAMES[pair[1]]} strings`)});
+  const asc=[0,6,12].map(st=>tb(p1.slice(st,st+6).map((x,i)=>N(x[0],x[1],alt(st+i)))));
+  const g6=[0,1,2,3].map(i=>tb(p1.slice(i,i+6).map(x=>N(x[0],x[1])),`Group ${i+1}`));
+  const rev=p1.slice().reverse();
+  const g4=[0,1,2,3,4,5].map(i=>tb(rev.slice(i,i+4).map(x=>N(x[0],x[1])),`Group ${i+1}`));
+  const loopNotes=[[0,3],[0,5],[0,7],[1,3],[1,5],[1,7]];
+  const loopAlt=tb(loopNotes.map((x,i)=>N(x[0],x[1],'DUDUDU'[i])),'Alternate picking');
+  const loopEco=tb(loopNotes.map((x,i)=>N(x[0],x[1],'DUDDUD'[i])),'Economy picking');
+  const skipUp=[[[0,12],[0,15],[2,12],[2,14]],[[1,12],[1,14],[3,12],[3,14]],[[2,12],[2,14],[4,12],[4,15]],[[3,12],[3,14],[5,12],[5,15]]];
+  const skip=skipUp.map((g,i)=>tb(g.map(x=>N(x[0],x[1])),['E + D','A + G','D + B','G + e'][i]));
+  const oct=[[3,5],[5,7],[7,9],[8,10],[10,12],[12,14],[14,16],[15,17]];
+  const octT=[0,4].map(st=>tb(oct.slice(st,st+4).flatMap(([a,b])=>[N(0,a),N(2,b)]),st?'D to G (upper)':'G to C'));
+  const hyb=[['G',5,4,3],['Am',7,5,5],['Bm',9,7,7],['C',10,9,8],['D',12,11,10],['Em',14,12,12]].map(([nm,d,g,b])=>tb([N(2,d,'p'),N(3,g,'m'),N(4,b,'a'),N(3,g,'m')],nm));
+  const ds=[['G',4,3],['C',5,5],['D',7,7]].map(([nm,g,b])=>tb([N(3,g,'p'),N(4,b,'m'),{n:[[3,g],[4,b]],l:'pm'},N(4,b,'m')],nm));
+  const sw3=[['G',7,8,7],['Em',9,8,7],['C',9,8,8],['D',7,7,5]].map(([nm,g,b,e])=>tb([N(3,g,'D'),N(4,b,'D'),N(5,e,'D'),N(4,b,'U'),N(3,g,'U')],nm));
+  const swGup=tb([N(1,10,'D'),N(2,9,'D'),N(3,7,'D'),N(4,8,'D'),N(5,7,'D'),N(5,10,'h')],'G · up');
+  const swGdn=tb([N(5,7,'p'),N(4,8,'U'),N(3,7,'U'),N(2,9,'U'),N(1,10,'U')],'G · back down');
+  const swEm=tb([N(1,7,'D'),N(2,9,'D'),N(3,9,'D'),N(4,8,'D'),N(5,7,'D'),N(4,8,'U'),N(3,9,'U'),N(2,9,'U')],'Em · up and back');
+  return {chrom,asc,g6,g4,loopAlt,loopEco,skip,octT,hyb,ds,sw3,swGup,swGdn,swEm};
+}
+function posFor(d){return POS[((dayNum(d)%7)+7)%7]}
+function renderTabs(){
+  const P=parts(POS[0]),tp=posFor(new Date()).n;
+  $('tabsbody').innerHTML=`
+  <div class="ex" id="t-warm"><h2>Sync warm-up</h2>
+    <p class="small muted">Chromatic 1-2-3-4, one finger per fret, strict alternate picking. Continue across all six strings, then come back down.</p>
+    ${row(P.chrom)}</div>
+  <div class="ex" id="t-pos"><h2>Seven 3nps positions · G major</h2>
+    <p class="small muted">Brass dots are G. Low E is at the bottom, like tab. Today's position is outlined.</p>
+    <div class="posgrid">${POS.map(p=>`<div class="pos panel${p.n===tp?' today':''}"><div class="bmeta"><strong>Position ${p.n}</strong><span class="small muted">from ${p.start}, fret ${p.frets[0][0]}</span></div>${fretSVG(p)}</div>`).join('')}</div>
+    <h3>Position 1 ascending</h3>${row(P.asc)}</div>
+  <div class="ex" id="t-seq"><h2>Sequences</h2>
+    <h3>Groups of 6, ascending</h3>
+    <p class="small muted">Play 6 notes, restart from the 2nd note, and keep going to the top. Shown in position 1; Today shows them for the day's position.</p>
+    ${row(P.g6)}
+    <h3>Groups of 4, descending</h3>
+    <p class="small muted">Start from the top note and walk down in fours.</p>
+    ${row(P.g4)}</div>
+  <div class="ex" id="t-loop"><h2>6-note loop</h2>
+    <p class="small muted">The 3nps string-change drill. With strict alternate picking, the second string starts on an upstroke; economy picking sweeps through the change. Burst for 1–2 seconds, stop, reset. Accent the first note of each string.</p>
+    ${row([P.loopAlt,P.loopEco])}</div>
+  <div class="ex" id="t-skip"><h2>String skipping</h2>
+    <h3>Pentatonic pairs · E minor, 12th fret</h3>
+    ${row(P.skip)}
+    <h3>Octave pairs · G major scale</h3>
+    <p class="small muted">Root on the low E, octave two frets up on the D string. Mute the A string with your fretting finger.</p>
+    ${row(P.octT)}</div>
+  <div class="ex" id="t-hyb"><h2>Hybrid picking</h2>
+    <h3>Triad rolls</h3>
+    <p class="small muted">p = pick, m = middle finger, a = ring finger.</p>
+    ${row(P.hyb)}
+    <h3>Chicken-pickin' double stops</h3>
+    <p class="small muted">Pick the G string, snap the B string with your middle finger, then pinch both (pm).</p>
+    ${row(P.ds)}</div>
+  <div class="ex" id="t-sweep"><h2>Sweep picking</h2>
+    <p class="small muted">One continuous push of the pick, not separate strokes. Lift each fretting finger as soon as its note is done so nothing rings together.</p>
+    <h3>3-string sweeps · G, Em, C, D</h3>
+    ${row(P.sw3)}
+    <h3>5-string sweeps</h3>
+    <p class="small muted">h = hammer-on, p = pull-off. Start these once the 3-string shapes are clean.</p>
+    ${row([P.swGup,P.swGdn,P.swEm])}</div>
+  <div class="ex" id="t-caged"><h2>CAGED beyond pentatonic</h2>
+    <ol class="steps"><li>Chord</li><li>Arpeggio: 1, 3, 5 only</li><li>Pentatonic</li><li>Major scale: add the 4 and 7</li><li>Mixolydian: every F# becomes F</li></ol>
+    <div class="panel scroll"><table class="ref">
+      <thead><tr><th>Shape</th><th>Frets (G)</th><th>Root</th></tr></thead>
+      <tbody>
+        <tr><td>G</td><td class="num">0–3</td><td>Open G chord, roots on low E fret 3 and open G</td></tr>
+        <tr><td>E</td><td class="num">3–5</td><td>Low E, fret 3</td></tr>
+        <tr><td>D</td><td class="num">4–8</td><td>D string, fret 5</td></tr>
+        <tr><td>C</td><td class="num">7–10</td><td>A string, fret 10</td></tr>
+        <tr><td>A</td><td class="num">10–12</td><td>A string, fret 10</td></tr>
+        <tr><td>G</td><td class="num">12–15</td><td>Low E, fret 15</td></tr>
+      </tbody></table></div>
+    <p class="small muted">Each 3nps position straddles two CAGED shapes. Position 1 covers the E shape and most of the D shape.</p></div>`;
+}
+
+/* ---------- today ---------- */
+function plan(d){
+  const pos=posFor(d),P=parts(pos),dow=d.getDay();
+  const ex=(id,min,title,tempo,how,tabs)=>({id,min,title,tempo,how,tabs});
+  const warm=ex('chrom',4,'Chromatic sync','Chromatic sync','One finger per fret, frets 5–8, strict alternate picking across all six strings and back down. Fret and pick at the same instant. Mute every string you aren\'t playing.',row(P.chrom));
+  if(dow===0)return{title:'Tempo check',sub:'Find your fastest clean tempo on each drill and log it.',list:[warm,
+    ex('g6',6,'3nps groups of 6 · Position '+pos.n,'3nps groups of 6','Start 10 bpm under your last number. Raise 4 bpm at a time until it breaks, then log the last clean tempo.',fretSVG(pos)+row(P.g6)),
+    ex('loop',5,'6-note loop','6-note loop','Same process, with whichever picking you\'ve settled on.',row([P.loopAlt,P.loopEco])),
+    ex('skip',5,'Pentatonic string skipping','String skipping','Same process.',row(P.skip)),
+    ex('hyb',5,'Hybrid triad rolls','Hybrid rolls','Same process.',row(P.hyb)),
+    ex('sw3',5,'3-string sweeps','3-string sweeps','Same process. Any two notes ringing together counts as a break.',row(P.sw3))]};
+  const core=[warm,
+    ex('loop',4,'6-note loop','6-note loop','Burst at full speed for 1–2 seconds, stop, reset. Run it on every string pair, ascending and descending. Accent the first note on each string.',row([P.loopAlt,P.loopEco])),
+    ex('g6',5,'3nps groups of 6 · Position '+pos.n,'3nps groups of 6','Ascending through the whole position, restarting from the next note each time. Burst 10–15 bpm above your clean tempo.',fretSVG(pos)+row(P.g6)),
+    ex('g4',4,'3nps groups of 4 · Position '+pos.n,'3nps groups of 4','From the top note down in fours. Watch the string changes.',row(P.g4))];
+  let focus,title;
+  if(dow===1){title='String skipping';focus=[
+    ex('skip',6,'Pentatonic string skipping','String skipping','Zigzag up in pairs, then reverse it down. Keep the skipped string quiet.',row(P.skip)),
+    ex('oct',7,'Octave pairs','Octave pairs','Up the G major scale and back. Mute the A string with the underside of your fretting finger.',row(P.octT))]}
+  else if(dow===2||dow===5){title='Hybrid picking';focus=[
+    ex('hyb',7,'Hybrid triad rolls','Hybrid rolls','p m a m with even volume on every note. Loop each chord, then run the whole scale.',row(P.hyb)),
+    ex('ds',6,'Chicken-pickin\' double stops','Double stops','Snap the B string so it clucks. Mute between notes.',row(P.ds))]}
+  else if(dow===4||dow===6){title='Sweep picking';focus=[
+    ex('sw3',7,'3-string sweeps','3-string sweeps','Loop each shape, then chain G, Em, C, D. One push of the pick, no notes ringing together.',row(P.sw3)),
+    ex('sw5',6,'5-string sweeps','5-string sweeps','Only once the 3-string shapes are clean. Until then, spend this time on 3-string sweeps too.',row([P.swGup,P.swGdn,P.swEm]))]}
+  else{const sh=CAGED_ORDER[Math.floor(dayNum(d)/7)%5];title='CAGED · '+sh+' shape';focus=[
+    ex('caged',13,'CAGED layering · '+sh+' shape',null,'In G: '+CAGED_ROWS[sh]+'. About 2–3 minutes per layer, all inside this one shape.','<ol class="steps"><li>Chord</li><li>Arpeggio: 1, 3, 5 only</li><li>Pentatonic</li><li>Major scale: add the 4 and 7</li><li>Mixolydian: every F# becomes F</li></ol>')]}
+  return{title,sub:'30 minutes · 3nps position '+pos.n+' today',list:[...core,...focus]};
+}
+function lastTempo(name){
+  const es=S.tempos.filter(e=>e.ex===name).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:(a.id<b.id?-1:1));
+  return es[es.length-1];
+}
+const CHECK='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg>';
+let todayDirty=false;
+function renderToday(){
+  const a=document.activeElement;
+  if(a&&a.tagName==='INPUT'&&$('blocks').contains(a)){todayDirty=true;return}
+  todayDirty=false;
+  const d=new Date(),key=ymd(d),done=S.days[key]||[];
+  const pl=plan(d),bl=pl.list;
+  $('dayeyebrow').textContent=d.toLocaleDateString(undefined,{weekday:'long',month:'short',day:'numeric'});
+  $('daytitle').textContent=pl.title;
+  const n=bl.filter(b=>done.includes(b.id)).length;
+  $('daysub').textContent=n===bl.length?'Session complete. 30 minutes in.':`${n} of ${bl.length} drills done · ${pl.sub}`;
+  let w='';
+  for(let i=6;i>=0;i--){
+    const x=new Date(d.getFullYear(),d.getMonth(),d.getDate()-i),k=ymd(x);
+    const ids=plan(x).list.map(b=>b.id),c=(S.days[k]||[]).filter(id=>ids.includes(id)).length,tot=ids.length;
+    w+=`<div class="wd${i===0?' now':''}" title="${k}: ${c} of ${tot}"><span>${x.toLocaleDateString(undefined,{weekday:'narrow'})}</span><i><b style="width:${Math.min(100,Math.round(c/tot*100))}%"></b></i></div>`;
+  }
+  $('week').innerHTML=w;
+  let t=0;
+  $('blocks').innerHTML=bl.map(b=>{
+    const isDone=done.includes(b.id),s=t;t+=b.min;
+    const lt=b.tempo?lastTempo(b.tempo):null;
+    const tempoLine=b.tempo?`<div class="qrow"><span class="small muted">${lt?`Last clean: <strong class="num">${lt.clean} bpm</strong> · ${fmtShort(lt.date)}`:'No tempo logged yet'}</span>
+      <span class="ql"><input type="number" inputmode="numeric" min="20" max="400" id="ql-${b.id}" placeholder="bpm" aria-label="Clean tempo for ${esc(b.title)}"><button class="btn small" type="button" data-log="${b.id}" data-ex="${esc(b.tempo)}">Log</button></span></div>`:'';
+    return `<li class="block panel${isDone?' done':''}">
+      <button class="check" role="checkbox" aria-checked="${isDone}" aria-label="Mark ${esc(b.title)} done" data-done="${b.id}">${CHECK}</button>
+      <div class="bbody"><div class="bmeta"><span class="time">${s}–${t} min</span><h3>${esc(b.title)}</h3></div>
+      <p>${esc(b.how)}</p>${b.tabs}${tempoLine}
+      <div><button class="btn small" type="button" data-start="${b.id}" data-min="${b.min}" data-title="${esc(b.title)}">Start ${b.min}:00 timer</button></div></div></li>`;
+  }).join('');
+}
+$('blocks').addEventListener('click',e=>{
+  const c=e.target.closest('[data-done]');if(c){toggleDone(c.dataset.done);return}
+  const s=e.target.closest('[data-start]');if(s){startTimer(s.dataset.start,+s.dataset.min,s.dataset.title);return}
+  const l=e.target.closest('[data-log]');if(l)quickLog(l.dataset.log,l.dataset.ex);
+});
+$('blocks').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id&&e.target.id.startsWith('ql-')){e.preventDefault();const b=e.target.nextElementSibling;if(b)quickLog(b.dataset.log,b.dataset.ex)}});
+$('blocks').addEventListener('focusout',()=>{setTimeout(()=>{if(todayDirty)renderToday()},0)});
+function quickLog(id,ex){
+  const inp=$('ql-'+id),v=parseInt(inp&&inp.value,10);
+  if(!(v>=20&&v<=400)){if(inp){inp.focus();inp.placeholder='20–400'}return}
+  S.tempos.push({id:Date.now().toString(36),date:ymd(new Date()),ex,clean:v,burst:null,note:''});
+  save();inp.value='';inp.blur();renderToday();renderTempo();
+}
+function toggleDone(id,force){
+  const key=ymd(new Date()),arr=(S.days[key]||[]).slice(),i=arr.indexOf(id);
+  if(i>=0&&force!==true)arr.splice(i,1);else if(i<0)arr.push(id);else return;
+  S.days[key]=arr;
+  const cutoff=dayNum(new Date())-120;
+  Object.keys(S.days).forEach(k=>{if(dayNum(parseYmd(k))<cutoff)delete S.days[k]});
+  save();renderToday();
+}
+
+/* ---------- timer ---------- */
+let T=null,iv=null,ac=null,lock=null;
+function startTimer(id,min,title){
+  try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();ac.resume&&ac.resume()}catch(e){ac=null}
+  try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(l=>{lock=l}).catch(()=>{})}catch(e){}
+  T={id,title,left:min*60000,end:Date.now()+min*60000,run:true};
+  $('timer').hidden=false;$('tname').textContent=title;$('tpause').textContent='Pause';
+  if(!iv)iv=setInterval(tick,250);tick();
+}
+function tick(){
+  if(!T){clearInterval(iv);iv=null;return}
+  const left=T.run?T.end-Date.now():T.left;
+  if(left<=0){finish();return}
+  const s=Math.ceil(left/1000);$('tclock').textContent=Math.floor(s/60)+':'+pad(s%60);
+}
+function stopTimer(){T=null;$('timer').hidden=true;try{lock&&lock.release()}catch(e){}lock=null}
+function finish(){const id=T.id;beep();stopTimer();toggleDone(id,true)}
+function beep(){
+  if(!ac)return;
+  try{[0,.3,.6].forEach(t=>{const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=880;o.connect(g);g.connect(ac.destination);const s=ac.currentTime+t;g.gain.setValueAtTime(.0001,s);g.gain.exponentialRampToValueAtTime(.3,s+.02);g.gain.exponentialRampToValueAtTime(.0001,s+.2);o.start(s);o.stop(s+.22)})}catch(e){}
+}
+$('tpause').addEventListener('click',()=>{if(!T)return;if(T.run){T.left=T.end-Date.now();T.run=false;$('tpause').textContent='Resume'}else{T.end=Date.now()+T.left;T.run=true;$('tpause').textContent='Pause'}tick()});
+$('tstop').addEventListener('click',stopTimer);
+
+/* ---------- tempo log ---------- */
+function renderTempo(){
+  const sel=$('tx-ex'),cur=sel.value;
+  const list=[...new Set([...EXS,...S.tempos.map(e=>e.ex)])];
+  sel.innerHTML=list.map(x=>`<option${x===cur?' selected':''}>${esc(x)}</option>`).join('');
+  if(!$('tx-date').value)$('tx-date').value=ymd(new Date());
+  const E=S.tempos.slice().sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:(a.id<b.id?-1:1));
+  const by={};E.forEach(e=>(by[e.ex]=by[e.ex]||[]).push(e));
+  const groups=Object.keys(by).sort((a,b)=>{const la=by[a][by[a].length-1].date,lb=by[b][by[b].length-1].date;return la<lb?1:la>lb?-1:0});
+  const today=dayNum(new Date());
+  $('tcards').innerHTML=groups.length?groups.map(k=>{
+    const es=by[k],last=es[es.length-1],first=es[0],dlt=last.clean-first.clean,ago=today-dayNum(parseYmd(last.date));
+    return `<div class="tc panel"><div class="eyebrow">${esc(k)}</div>
+      <div class="big">${last.clean} <small>bpm clean${last.burst?` · ${last.burst} burst`:''}</small></div>
+      <div class="delta ${dlt>0?'up':dlt<0?'down':'flat'}">${es.length>1?(dlt>0?'+':'')+dlt+' bpm since '+fmtShort(first.date):'First entry'}</div>
+      ${spark(es.map(e=>e.clean))}
+      ${ago>=14?`<div class="stale">Last checked ${ago} days ago. Re-check it.</div>`:`<div class="small muted">Last checked ${ago===0?'today':ago===1?'yesterday':ago+' days ago'}</div>`}</div>`;
+  }).join(''):`<div class="panel small muted" style="grid-column:1/-1">No tempos logged yet. Log a clean tempo from any drill on Today, or use the form above. Each exercise gets its own trend card here.</div>`;
+  const R=E.slice().reverse().slice(0,20);
+  $('trows').innerHTML=R.length?R.map(e=>`<li><span class="num small muted">${fmtShort(e.date)}</span><span class="note">${esc(e.ex)}${e.note?` <span class="muted">· ${esc(e.note)}</span>`:''}</span><span class="num">${e.clean}${e.burst?'/'+e.burst:''}</span><button class="btn small" type="button" data-del="${esc(e.id)}" aria-label="Delete entry">×</button></li>`).join(''):'<li class="small muted" style="display:block">Entries show here, newest first.</li>';
+}
+function spark(v){
+  const W=200,H=36,p=4;
+  if(v.length<2)return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><circle class="pt" cx="${W-p}" cy="${H/2}" r="3"/></svg>`;
+  const lo=Math.min(...v),hi=Math.max(...v),r=hi-lo||1;
+  const pts=v.map((x,i)=>[p+(W-2*p)*i/(v.length-1),H-p-(H-2*p)*(x-lo)/r]);
+  const d=pts.map(q=>q[0].toFixed(1)+','+q[1].toFixed(1)).join(' '),l=pts[pts.length-1];
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><polygon class="ar" points="${p},${H} ${d} ${W-p},${H}"/><polyline class="ln" points="${d}" vector-effect="non-scaling-stroke"/><circle class="pt" cx="${l[0]}" cy="${l[1]}" r="3"/></svg>`;
+}
+$('logform').addEventListener('submit',e=>{
+  e.preventDefault();
+  const clean=parseInt($('tx-clean').value,10),burst=parseInt($('tx-burst').value,10);
+  if(!(clean>=20&&clean<=400)){$('tx-msg').textContent='Enter a clean tempo between 20 and 400 bpm.';$('tx-clean').focus();return}
+  S.tempos.push({id:Date.now().toString(36),date:$('tx-date').value||ymd(new Date()),ex:$('tx-ex').value,clean,burst:burst>=20&&burst<=400?burst:null,note:$('tx-note').value.trim()});
+  if(S.tempos.length>2000)S.tempos.splice(0,S.tempos.length-2000);
+  save();$('tx-clean').value='';$('tx-burst').value='';$('tx-note').value='';
+  $('tx-msg').textContent='Logged '+clean+' bpm.';renderTempo();renderToday();
+});
+$('trows').addEventListener('click',e=>{
+  const b=e.target.closest('[data-del]');if(!b)return;
+  if(b.dataset.arm!=='1'){b.dataset.arm='1';b.textContent='Delete?';setTimeout(()=>{if(b.isConnected){b.dataset.arm='';b.textContent='×'}},3000);return}
+  S.tempos=S.tempos.filter(x=>x.id!==b.dataset.del);save();renderTempo();renderToday();
+});
+
+function render(){renderToday();renderTempo()}
+setInterval(()=>{if(!T&&uid)renderToday()},60000);
+boot();
+})();
+</script>
+</body>
+</html>
