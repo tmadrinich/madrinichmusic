@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Free Quad Cortex Captures | Madrinich Music</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free Quad Cortex captures of Taylor Madrinich's own PRS Archon 50 and pedals. Download on Cortex Cloud under MadrinichMusic.">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+
+  <style>
+    .cc-badge {
+      max-width: 720px;
+      margin: 0 auto 50px;
+      padding: 20px 24px;
+      border: 1px solid rgba(176,141,87,0.4);
+      border-radius: 12px;
+      background: #0F2A1F;
+      text-align: center;
+    }
+    .cc-badge p { margin: 0 0 14px; }
+    .cc-badge strong { color: #B08D57; letter-spacing: 0.04em; }
+
+    .capture-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    .capture-card {
+      background: #1F3D2B;
+      border: 1px solid rgba(176,141,87,0.25);
+      border-radius: 12px;
+      padding: 28px 28px 30px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .capture-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    }
+    .capture-ep {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.8rem;
+      color: #B08D57;
+      margin: 0 0 6px;
+    }
+    .capture-card h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      margin: 0 0 4px;
+    }
+    .capture-code {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #6B6F73;
+      margin: 0 0 16px;
+    }
+    .capture-card .service-divider { margin: 0 0 16px; }
+    .capture-chain {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 22px;
+      font-size: 0.95rem;
+      color: rgba(242,239,234,0.85);
+    }
+    .capture-chain li {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .capture-chain span {
+      color: #B08D57;
+      font-weight: 700;
+    }
+    .capture-actions {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .capture-actions a {
+      flex: 1 1 140px;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+    }
+    .btn-ghost {
+      display: inline-block;
+      text-align: center;
+      border: 1px solid #6B6F73;
+      border-radius: 4px;
+      font-weight: bold;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+    .btn-ghost:hover { border-color: #B08D57; color: #B08D57; }
+
+    .series-note {
+      max-width: 720px;
+      margin: 60px auto 0;
+      text-align: center;
+    }
+  </style>
+
+  <!-- Metricool tracker -->
+  <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"a38e50aef7d44a76a6e43c099cf81991"})});</script>
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="header"></div>
+
+  <section class="section-dark">
+    <div class="container">
+      <h2>MY CAPTURES</h2>
+      <p class="services-intro">
+        Quad Cortex captures of my own amp and pedals. Free to download.
+        Pro tones. Normal gear.
+      </p>
+
+      <div class="cc-badge">
+        <p>All captures are free on Cortex Cloud under <strong>MadrinichMusic</strong>.</p>
+        <a href="https://neuraldsp.com/cloud" target="_blank" rel="noopener" class="btn-primary">Open Cortex Cloud</a>
+      </div>
+
+      <!-- Capture cards are built from the CAPTURES list at the bottom of this page -->
+      <div class="capture-list" id="capture-list"></div>
+
+      <div class="series-note">
+        <p class="credits-label">My Captures — the series</p>
+        <p class="services-intro" style="margin-bottom:20px;">
+          Every episode is one capture, one song, and the full signal chain. New episodes most weeks.
+        </p>
+        <div class="services-cta" style="margin-top:0;">
+          <a href="https://www.youtube.com/@madrinichmusic" target="_blank" rel="noopener" class="btn-primary">Watch on YouTube</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shared Footer -->
+  <footer id="footer"></footer>
+
+  <script>
+    // ============ ADD A NEW CAPTURE HERE ============
+    // cloudUrl: the capture's Cortex Cloud link (chain icon on neuraldsp.com/cloud).
+    //           Leave "" and the button opens Cortex Cloud instead.
+    // videoUrl: the episode's YouTube/Instagram link. Leave "" to hide the button.
+    const CAPTURES = [
+      {
+        ep: 2,
+        name: "PRS Archon 50 — Lead",
+        code: "PRS-LD-MODERN",
+        amp: "PRS Archon 50, lead channel",
+        front: "Nothing — straight into the amp",
+        demo: "Wage War \"Tombstone\" outro (Drop B)",
+        cloudUrl: "",
+        videoUrl: ""
+      },
+      {
+        ep: 1,
+        name: "Golden Boy + Archon Crunch",
+        code: "GB-BLUE-CRUNCH",
+        amp: "PRS Archon 50",
+        front: "Jackson Audio Golden Boy",
+        demo: "Rhythm (Bloom off) and lead (Bloom on)",
+        cloudUrl: "",
+        videoUrl: ""
+      }
+    ];
+    // =================================================
+
+    const list = document.getElementById('capture-list');
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+    list.innerHTML = CAPTURES
+      .slice()
+      .sort((a, b) => b.ep - a.ep)
+      .map(c => `
+        <article class="capture-card">
+          <p class="capture-ep">Ep. ${esc(c.ep)}</p>
+          <h3>${esc(c.name)}</h3>
+          <p class="capture-code">${esc(c.code)}</p>
+          <div class="service-divider"></div>
+          <ul class="capture-chain">
+            <li><span>Amp</span><div>${esc(c.amp)}</div></li>
+            <li><span>In front</span><div>${esc(c.front)}</div></li>
+            <li><span>Demo</span><div>${esc(c.demo)}</div></li>
+          </ul>
+          <div class="capture-actions">
+            <a href="${esc(c.cloudUrl || 'https://neuraldsp.com/cloud')}" target="_blank" rel="noopener" class="btn-primary">Download</a>
+            ${c.videoUrl ? `<a href="${esc(c.videoUrl)}" target="_blank" rel="noopener" class="btn-ghost">Watch</a>` : ''}
+          </div>
+        </article>`)
+      .join('');
+  </script>
+
+  <!-- Global JS -->
+  <script src="/main.js"></script>
+
+</body>
+</html>

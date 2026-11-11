@@ -43,10 +43,8 @@ function initNav() {
   links.forEach(link => {
     const href = link.getAttribute('href').replace(/\/$/, ""); // remove trailing slash
 
-    if (
-      (href === "/" && (path === "" || path === "/")) || // home page
-      path.endsWith(href) // matches folder or page
-    ) {
+    // Home ("/" → "") only matches the root; endsWith("") is true for every path
+    if (href === "" ? path === "" : path.endsWith(href)) {
       link.classList.add("active");
     } else {
       link.classList.remove("active");
