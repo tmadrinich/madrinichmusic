@@ -116,6 +116,55 @@
       margin: 60px auto 0;
       text-align: center;
     }
+    .library { margin-top: 80px; }
+    .library-group { margin-top: 40px; }
+    .library-group h3 {
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+      color: #B08D57;
+      border-bottom: 1px solid rgba(176,141,87,0.3);
+      padding-bottom: 8px;
+      margin: 0 0 16px;
+    }
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 12px 30px;
+    }
+    .library-item {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(107,111,115,0.25);
+      font-size: 0.95rem;
+    }
+    .library-item code {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #F2EFEA;
+      word-break: break-word;
+    }
+    .library-item > span { color: rgba(242,239,234,0.8); }
+    .library-item:not(.is-live) code { color: #6B6F73; }
+    .lib-tag {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 1px 8px;
+      border-radius: 3px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .lib-free { background: #B08D57; color: #121212; }
+    .lib-soon { border: 1px solid #6B6F73; color: #6B6F73; }
+    .library-item code { display: block; }
+    @media (max-width: 480px) {
+      .library-item { grid-template-columns: 1fr; gap: 2px; }
+    }
   </style>
 
   <!-- Metricool tracker -->
@@ -135,12 +184,21 @@
       </p>
 
       <div class="cc-badge">
-        <p>All captures are free on Cortex Cloud under <strong>MadrinichMusic</strong>.</p>
+        <p>Every released capture is free on Cortex Cloud under <strong>MadrinichMusic</strong>. New ones drop with each episode.</p>
         <a href="https://cloud.neuraldsp.com/cloud/u/MadrinichMusic/neural-capture" target="_blank" rel="noopener" class="btn-primary">Open my Cortex Cloud</a>
       </div>
 
       <!-- Capture cards are built from the CAPTURES list at the bottom of this page -->
       <div class="capture-list" id="capture-list"></div>
+
+      <!-- Full library: built from the LIBRARY list at the bottom of this page -->
+      <div class="library">
+        <h2>THE FULL LIBRARY</h2>
+        <p class="services-intro" style="margin-bottom:0;">
+          Every capture I've made and what it's for. Each one goes free on Cortex Cloud when its episode drops. Follow along so you don't miss one.
+        </p>
+        <div id="library"></div>
+      </div>
 
       <div class="series-note">
         <p class="credits-label">My Captures — the series</p>
@@ -210,6 +268,73 @@
           </div>
         </article>`)
       .join('');
+
+    // ============ FULL CAPTURE LIBRARY ============
+    // Add a code to RELEASED when its episode drops and it goes public on Cortex Cloud.
+    const RELEASED = ["GB-BLUE-CRUNCH", "PRS-LD-MODERN"];
+    const LIBRARY = [
+      { group: "Archon — Clean Channel", items: [
+        ["ARC-CLN-PRIS", "Pristine: ballads, arpeggiated intros, acoustic-style strumming parts"],
+        ["ARC-CLN-PLAT", "Pedal platform: base preset for stacking QC drive blocks"],
+        ["ARC-CLN-PLAT-BR", "Bright on: Tele or single-coil nights, or dark-sounding rooms"],
+        ["ARC-CLN-EOB", "Edge of breakup: dig in to grit up, back off to clean up"],
+        ["ARC-CLN-CRUNCH", "Pushed crunch: old-school rock and roll and roots-rock rhythm"]
+      ]},
+      { group: "Archon — Lead Channel", items: [
+        ["ARC-LD-CLASSIC", "Classic rock rhythm: '70s rock and southern rock covers"],
+        ["ARC-LD-RHY", "Big choruses and heavier modern country-rock rhythm"],
+        ["ARC-LD-SOLO", "Sustained solos and melody leads"],
+        ["ARC-LD-HIGH", "Hard rock covers, or a spare high-gain tone"]
+      ]},
+      { group: "Centavo", items: [
+        ["CEN-ON-PLAT", "Everyday clean: the default for most songs"],
+        ["CEN-ON-PLAT-MOD", "Everyday clean with fuller low strings for drop tunings and low riffs"],
+        ["CEN-DRV-EOB", "Country-rock rhythm and lighter leads"],
+        ["CEN-BST-CLASSIC", "Lifting a classic-rock rhythm into a solo"]
+      ]},
+      { group: "Angry Driver", items: [
+        ["AD-BD", "Blues Driver side: touch-sensitive bluesy breaks and Texas shuffle leads"],
+        ["AD-AC", "Angry Charlie side: Marshall-style rock rhythm and '80s rock covers"],
+        ["AD-SERIES", "Both stacked: hot leads and big solo moments"]
+      ]},
+      { group: "Golden Boy", items: [
+        ["GB-AMBER-LO", "Chicken-pickin' grit and country leads that clean up with the volume knob"],
+        ["GB-BLUE-CRUNCH", "Main country-rock crunch for choruses; red dirt rhythm"],
+        ["GB-STACK-SOLO", "The go-to solo button"],
+        ["GB-MAGENTA", "Heavier rhythm parts and riff-driven songs"],
+        ["GB-BST-FULL", "Clean lift for a solo over the edge-of-breakup tone"],
+        ["STK-GBBRIGHT-RHY", "Tight palm-muted rock rhythm"]
+      ]},
+      { group: "The Hog", items: [
+        ["HOG-CRUNCH", "Thick, modern crunch for heavier choruses"],
+        ["HOG-FULL", "Big heavy riffs and walls of sound"]
+      ]},
+      { group: "Stacks", items: [
+        ["STK-BD-SOLO", "Singing, sustained solos, like slow-burn ballad solos"]
+      ]},
+      { group: "PRS Factory Settings", items: [
+        ["PRS-CLN-HB", "Blues-rock rhythm on PRS humbuckers"],
+        ["PRS-LD-CLASSIC", "Midrange-forward classic rock that cuts through a band"],
+        ["PRS-CLN-SC", "Sparkly Strat or Tele cleans"],
+        ["PRS-LD-MODERN", "Modern rock and thicker rhythm with more low end"],
+        ["PRS-LD-METAL", "Metal and heavy covers"],
+        ["STK-GBBRIGHT-METAL", "Tight metal palm-mutes and chugs"]
+      ]}
+    ];
+
+    document.getElementById('library').innerHTML = LIBRARY.map(g => `
+      <div class="library-group">
+        <h3>${esc(g.group)}</h3>
+        <div class="library-grid">
+          ${g.items.map(([code, use]) => {
+            const live = RELEASED.includes(code);
+            const tag = live
+              ? `<a class="lib-tag lib-free" href="${esc(CLOUD_PROFILE)}" target="_blank" rel="noopener">Free</a>`
+              : `<span class="lib-tag lib-soon">Coming soon</span>`;
+            return `<div class="library-item${live ? ' is-live' : ''}"><div><code>${esc(code)}</code>${tag}</div><span>${esc(use)}</span></div>`;
+          }).join('')}
+        </div>
+      </div>`).join('');
   </script>
 
   <!-- Global JS -->
