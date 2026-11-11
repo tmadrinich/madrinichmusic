@@ -136,7 +136,7 @@
 
       <div class="cc-badge">
         <p>All captures are free on Cortex Cloud under <strong>MadrinichMusic</strong>.</p>
-        <a href="https://neuraldsp.com/cloud" target="_blank" rel="noopener" class="btn-primary">Open Cortex Cloud</a>
+        <a href="https://cloud.neuraldsp.com/cloud/u/MadrinichMusic/preset" target="_blank" rel="noopener" class="btn-primary">Open my Cortex Cloud</a>
       </div>
 
       <!-- Capture cards are built from the CAPTURES list at the bottom of this page -->
@@ -160,8 +160,9 @@
   <script>
     // ============ ADD A NEW CAPTURE HERE ============
     // cloudUrl: the capture's Cortex Cloud link (chain icon on neuraldsp.com/cloud).
-    //           Leave "" and the button opens Cortex Cloud instead.
+    //           Leave "" and the button opens the MadrinichMusic profile instead.
     // videoUrl: the episode's YouTube/Instagram link. Leave "" to hide the button.
+    const CLOUD_PROFILE = "https://cloud.neuraldsp.com/cloud/u/MadrinichMusic/preset";
     const CAPTURES = [
       {
         ep: 2,
@@ -204,7 +205,7 @@
             <li><span>Demo</span><div>${esc(c.demo)}</div></li>
           </ul>
           <div class="capture-actions">
-            <a href="${esc(c.cloudUrl || 'https://neuraldsp.com/cloud')}" target="_blank" rel="noopener" class="btn-primary">Download</a>
+            <a href="${esc(c.cloudUrl || CLOUD_PROFILE)}" target="_blank" rel="noopener" class="btn-primary">Download</a>
             ${c.videoUrl ? `<a href="${esc(c.videoUrl)}" target="_blank" rel="noopener" class="btn-ghost">Watch</a>` : ''}
           </div>
         </article>`)
