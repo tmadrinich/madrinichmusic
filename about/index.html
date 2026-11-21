@@ -68,6 +68,38 @@
             font-size: 0.9rem;
         }
 
+        /* ===================== SHARED THE STAGE ===================== */
+        .stage-list {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px 28px;
+        }
+
+        .stage-list li {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-size: 1.4rem;
+            color: #F2EFEA;
+        }
+
+        .stage-list li + li::before {
+            content: "·";
+            color: #B08D57;
+            margin-right: 28px;
+        }
+
+        @media (max-width: 600px) {
+            .stage-list { flex-direction: column; align-items: center; gap: 6px; }
+            .stage-list li + li::before { content: none; }
+            .stage-list li { font-size: 1.2rem; }
+        }
+
         /* Bold link styling for North Central University without color */
         .no-link-style {
             color: inherit;
@@ -149,6 +181,13 @@
         <p class="services-intro" style="text-align:center; margin-top:20px;">
             Also: Sarah Holdyn · Karina Kern · Maiden Dixie · Drop Tailgate
         </p>
+
+        <p class="credits-label">Shared the stage with</p>
+        <ul class="stage-list">
+            <li>Montgomery Gentry</li>
+            <li>Thompson Square</li>
+            <li>Cece Frey</li>
+        </ul>
 
         <p style="margin-top:30px;">
             Off stage, I run <a href="https://twincitiessoundco.com" target="_blank" rel="noopener" class="accent">Twin Cities Sound Co.</a> — booking, recording, promotion, and digital for artists. This site is just the guitar.
